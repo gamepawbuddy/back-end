@@ -20,18 +20,22 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('title')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('email')->unique();
-            $table->string('username')->unique();
+            $table->string('username')->unique()->nullable();
             $table->string('password_hash');
             $table->string('avatar')->nullable();
             $table->text('bio')->nullable();
-            $table->string('city');
-            $table->string('country');
+            $table->string('city')->nullable();
+            $table->string('address_1')->nullable();
+            $table->string('address_2')->nullable();
+            $table->string('address_3')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('country')->nullable();
             $table->date('birth_date')->nullable();
-            $table->enum('gender', ['male', 'female', 'other']);
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->string('phone')->nullable();
             $table->string('other_phone')->nullable();
             $table->json('favorite_dog_breeds')->nullable();

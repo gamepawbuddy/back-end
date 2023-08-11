@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->group(function () {
+    // User creation route
+    Route::post('create-user', [UsersController::class, 'create']);
+
+    // // Authentication route for obtaining API tokens
+    // Route::post('login', [AuthController::class, 'login']);
 });
+
+
+
+// Route::middleware('auth:sanctum')->group(function () {
+
+//     // Route to get the authenticated user's tokens
+//     Route::get('tokens', [AuthController::class, 'getUserTokens']);
+
+//     // Route to revoke a specific token
+//     Route::delete('tokens/{token_id}', [AuthController::class, 'revokeToken']);
+// });

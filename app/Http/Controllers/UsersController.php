@@ -11,13 +11,38 @@ use Illuminate\Support\Str;
 /**
  * UsersController handles the creation and management of users.
  */
+
 class UsersController extends Controller
 {
-    /**
+    
+  /**
      * Handle the user creation request.
-     *
+     * 
      * @param Request $request The incoming request.
      * @return \Illuminate\Http\JsonResponse
+     * 
+     * API docs:
+     *
+     * Create a new user.
+     *
+     * This endpoint allows you to create a new user. The user's email and password should be provided in the request body.
+     *
+     * @bodyParam email string required The email address of the user. Example: john@example.com
+     * @bodyParam password string required The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.
+     *
+     * @response 201 {
+     *  "message": "User created successfully"
+     * }
+     * @response 422 {
+     *  "message": "Validation failed",
+     *  "errors": {
+     *     "email": ["The email field is required."],
+     *     "password": ["The password field is required."]
+     *  }
+     * }
+     * @response 500 {
+     *  "message": "User creation failed"
+     * }
      */
     public function create(Request $request)
     {

@@ -1,0 +1,97 @@
+openapi: 3.0.3
+info:
+  title: gamepawbuddy
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://gamepawbuddy.local'
+paths:
+  /api/v1/create-user:
+    post:
+      summary: 'Handle the user creation request.'
+      operationId: handleTheUserCreationRequest
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User created successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'User created successfully'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Validation failed'
+                  errors:
+                    email:
+                      - 'The email field is required.'
+                    password:
+                      - 'The password field is required.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Validation failed'
+                  errors:
+                    type: object
+                    properties:
+                      email:
+                        type: array
+                        example:
+                          - 'The email field is required.'
+                        items:
+                          type: string
+                      password:
+                        type: array
+                        example:
+                          - 'The password field is required.'
+                        items:
+                          type: string
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User creation failed'
+                properties:
+                  message:
+                    type: string
+                    example: 'User creation failed'
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email address of the user.'
+                  example: john@example.com
+                password:
+                  type: string
+                  description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
+                  example: 5%!QAkY<me)c
+              required:
+                - email
+                - password
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''

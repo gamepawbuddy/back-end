@@ -111,7 +111,7 @@ class UsersController extends Controller
             $user = new Users();
             $user->id = (string) Str::uuid();
             $user->email = $userData['email'];
-            $user->password_hash = Hash::make($userData['password']);
+            $user->password = Hash::make($userData['password']);
             $user->save();
 
             return true;

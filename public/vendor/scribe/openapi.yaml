@@ -54,7 +54,7 @@ paths:
                 password:
                   type: string
                   description: 'The password of the user.'
-                  example: 'hCl08o0!O}dS:x'
+                  example: '>B1_"L>HtQQ'
               required:
                 - email
                 - password
@@ -64,14 +64,7 @@ paths:
       summary: 'Handle the user creation request.'
       operationId: handleTheUserCreationRequest
       description: ''
-      parameters:
-        -
-          in: header
-          name: Authorization
-          description: ''
-          example: 'Bearer {YOUR_AUTH_KEY}'
-          schema:
-            type: string
+      parameters: []
       responses:
         201:
           description: ''
@@ -145,23 +138,15 @@ paths:
                 password:
                   type: string
                   description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
-                  example: 'CNzThL~)sS(3I8VV"*:'
+                  example: 'An$cy,sWpv'
               required:
                 - email
                 - password
+      security: []
 tags:
   -
     name: 'Authenticating requests'
     description: 'This endpoint allows users to authenticate and retrieve an API token. You must provide the user''s email and password in the request body.'
   -
     name: User
-    description: ''
-components:
-  securitySchemes:
-    default:
-      type: http
-      scheme: bearer
-      description: ''
-security:
-  -
-    default: []
+    description: 'This endpoint allows you to create a new user. The user''s email and password should be provided in the request body.'

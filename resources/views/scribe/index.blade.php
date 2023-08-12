@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>gamepawbuddy</title>
+    <title>gamepawbuddy Documentation</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../docs/css/theme-default.style.css" media="screen">
-    <link rel="stylesheet" href="../docs/css/theme-default.print.css" media="print">
+    <link rel="stylesheet" href="{{ asset("/vendor/scribe/css/theme-default.style.css") }}" media="screen">
+    <link rel="stylesheet" href="{{ asset("/vendor/scribe/css/theme-default.print.css") }}" media="print">
 
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 
@@ -32,9 +32,9 @@
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
-    <script src="../docs/js/tryitout-4.22.0.js"></script>
+    <script src="{{ asset("/vendor/scribe/js/tryitout-4.22.0.js") }}"></script>
 
-    <script src="../docs/js/theme-default-4.22.0.js"></script>
+    <script src="{{ asset("/vendor/scribe/js/theme-default-4.22.0.js") }}"></script>
 
 </head>
 
@@ -43,7 +43,7 @@
 <a href="#" id="nav-button">
     <span>
         MENU
-        <img src="../docs/images/navbar.png" alt="navbar-image"/>
+        <img src="{{ asset("/vendor/scribe/images/navbar.png") }}" alt="navbar-image"/>
     </span>
 </a>
 <div class="tocify-wrapper">
@@ -93,8 +93,8 @@
             </div>
 
     <ul class="toc-footer" id="toc-footer">
-                    <li style="padding-bottom: 5px;"><a href="../docs/collection.json">View Postman collection</a></li>
-                            <li style="padding-bottom: 5px;"><a href="../docs/openapi.yaml">View OpenAPI spec</a></li>
+                    <li style="padding-bottom: 5px;"><a href="{{ route("scribe.postman") }}">View Postman collection</a></li>
+                            <li style="padding-bottom: 5px;"><a href="{{ route("scribe.openapi") }}">View OpenAPI spec</a></li>
                 <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
     </ul>
 
@@ -114,9 +114,7 @@
 <aside>See code examples on the right. Switch languages using the top tabs or the nav menu on mobile.</aside>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_AUTH_KEY}"</code></strong>.</p>
-<p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
-<p>You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.</p>
+<p>This API is not authenticated.</p>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
 
@@ -125,6 +123,7 @@
                                 <h2 id="authenticating-requests-POSTapi-v1-login">Authenticate the user and issue an API token.</h2>
 
 <p>
+<small class="badge badge-darkred">requires authentication</small>
 </p>
 
 
@@ -140,7 +139,7 @@
     --header "Accept: application/json" \
     --data "{
     \"email\": \"john@example.com\",
-    \"password\": \"hCl08o0!O}dS:x\"
+    \"password\": \"=z!Fop4*\\\"jG\\\"Fhl7&lt;N\"
 }"
 </code></pre></div>
 
@@ -157,7 +156,7 @@ const headers = {
 
 let body = {
     "email": "john@example.com",
-    "password": "hCl08o0!O}dS:x"
+    "password": "=z!Fop4*\"jG\"Fhl7&lt;N"
 };
 
 fetch(url, {
@@ -178,7 +177,7 @@ $response = $client-&gt;post(
         ],
         'json' =&gt; [
             'email' =&gt; 'john@example.com',
-            'password' =&gt; 'hCl08o0!O}dS:x',
+            'password' =&gt; '=z!Fop4*"jG"Fhl7&lt;N',
         ],
     ]
 );
@@ -193,7 +192,7 @@ import json
 url = 'http://gamepawbuddy.local/api/v1/login'
 payload = {
     "email": "john@example.com",
-    "password": "hCl08o0!O}dS:x"
+    "password": "=z!Fop4*\"jG\"Fhl7&lt;N"
 }
 headers = {
   'Content-Type': 'application/json',
@@ -242,7 +241,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 </span>
 <form id="form-POSTapi-v1-login" data-method="POST"
       data-path="api/v1/login"
-      data-authed="0"
+      data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
@@ -312,16 +311,16 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-v1-login"
-               value="hCl08o0!O}dS:x"
+               value="=z!Fop4*"jG"Fhl7<N"
                data-component="body">
     <br>
-<p>The password of the user. Example: <code>hCl08o0!O}dS:x</code></p>
+<p>The password of the user. Example: <code>=z!Fop4*"jG"Fhl7&lt;N</code></p>
         </div>
         </form>
 
                 <h1 id="user">User</h1>
 
-    
+    <p>This endpoint allows you to create a new user. The user's email and password should be provided in the request body.</p>
 
                                 <h2 id="user-POSTapi-v1-create-user">Handle the user creation request.</h2>
 
@@ -338,12 +337,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
     "http://gamepawbuddy.local/api/v1/create-user" \
-    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
     \"email\": \"john@example.com\",
-    \"password\": \"CNzThL~)sS(3I8VV\\\"*:\"
+    \"password\": \"$P3[vP}P(L?B\"
 }"
 </code></pre></div>
 
@@ -354,14 +352,13 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
 let body = {
     "email": "john@example.com",
-    "password": "CNzThL~)sS(3I8VV\"*:"
+    "password": "$P3[vP}P(L?B"
 };
 
 fetch(url, {
@@ -377,13 +374,12 @@ $response = $client-&gt;post(
     'http://gamepawbuddy.local/api/v1/create-user',
     [
         'headers' =&gt; [
-            'Authorization' =&gt; 'Bearer {YOUR_AUTH_KEY}',
             'Content-Type' =&gt; 'application/json',
             'Accept' =&gt; 'application/json',
         ],
         'json' =&gt; [
             'email' =&gt; 'john@example.com',
-            'password' =&gt; 'CNzThL~)sS(3I8VV"*:',
+            'password' =&gt; '$P3[vP}P(L?B',
         ],
     ]
 );
@@ -398,10 +394,9 @@ import json
 url = 'http://gamepawbuddy.local/api/v1/create-user'
 payload = {
     "email": "john@example.com",
-    "password": "CNzThL~)sS(3I8VV\"*:"
+    "password": "$P3[vP}P(L?B"
 }
 headers = {
-  'Authorization': 'Bearer {YOUR_AUTH_KEY}',
   'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
@@ -496,17 +491,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
                                 <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-v1-create-user"
-               value="Bearer {YOUR_AUTH_KEY}"
-               data-component="header">
-    <br>
-<p>Example: <code>Bearer {YOUR_AUTH_KEY}</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
 &nbsp;
  &nbsp;
@@ -546,10 +530,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-v1-create-user"
-               value="CNzThL~)sS(3I8VV"*:"
+               value="$P3[vP}P(L?B"
                data-component="body">
     <br>
-<p>The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character. Example: <code>CNzThL~)sS(3I8VV"*:</code></p>
+<p>The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character. Example: <code>$P3[vP}P(L?B</code></p>
         </div>
         </form>
 

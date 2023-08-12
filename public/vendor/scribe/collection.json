@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "gamepawbuddy",
-        "_postman_id": "1504e6ca-1869-4933-938d-0af74d0206d0",
+        "_postman_id": "16c87eef-12d6-4bc4-a1a8-257359bc66f9",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"john@example.com\",\"password\":\"hCl08o0!O}dS:x\"}"
+                            "raw": "{\"email\":\"john@example.com\",\"password\":\">B1_\\\"L>HtQQ\"}"
                         },
                         "description": "",
                         "auth": {
@@ -67,7 +67,7 @@
         },
         {
             "name": "User",
-            "description": "",
+            "description": "This endpoint allows you to create a new user. The user's email and password should be provided in the request body.",
             "item": [
                 {
                     "name": "Handle the user creation request.",
@@ -91,9 +91,12 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"john@example.com\",\"password\":\"CNzThL~)sS(3I8VV\\\"*:\"}"
+                            "raw": "{\"email\":\"john@example.com\",\"password\":\"An$cy,sWpv\"}"
                         },
-                        "description": ""
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
                     },
                     "response": [
                         {
@@ -120,13 +123,6 @@
         }
     ],
     "auth": {
-        "type": "bearer",
-        "bearer": [
-            {
-                "key": "key",
-                "value": null,
-                "type": "string"
-            }
-        ]
+        "type": "noauth"
     }
 }

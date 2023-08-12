@@ -36,8 +36,24 @@ class AuthController extends Controller
     /**
      * Authenticate the user and issue an API token.
      *
+     * @group Authenticating requests
+     * 
+     * This endpoint allows users to authenticate and retrieve an API token. You must provide the user's email and password in the request body.
+     *
      * @param  \Illuminate\Http\Request  $request
+     * 
+     * @bodyParam email string required The email address of the user. Example: john@example.com
+     * @bodyParam password string required The password of the user.
+     * 
      * @return \Illuminate\Http\JsonResponse
+     * 
+     * @response 200 {
+     *  "token": "api_token_here"
+     * }
+     * 
+     * @response 401 {
+     *  "error": "Invalid credentials"
+     * }
      */
     public function login(Request $request)
     {

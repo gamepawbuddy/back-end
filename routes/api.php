@@ -20,8 +20,8 @@ Route::prefix('v1')->group(function () {
     // User creation route
     Route::post('create-user', [UsersController::class, 'create']);
 
-    // // Authentication route for obtaining API tokens
-    // Route::post('login', [AuthController::class, 'login']);
+    // Authentication route for obtaining API tokens
+    Route::post('login', [AuthController::class, 'login']);
 });
 
 

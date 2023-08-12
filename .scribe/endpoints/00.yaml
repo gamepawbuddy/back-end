@@ -1,4 +1,4 @@
-name: Endpoints
+name: User
 description: ''
 endpoints:
   -
@@ -6,15 +6,16 @@ endpoints:
       - POST
     uri: api/v1/create-user
     metadata:
-      groupName: Endpoints
+      groupName: User
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
       title: 'Handle the user creation request.'
       description: ''
-      authenticated: false
+      authenticated: true
       custom: []
     headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
@@ -33,12 +34,12 @@ endpoints:
         name: password
         description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
         required: true
-        example: 5%!QAkY<me)c
+        example: 'CNzThL~)sS(3I8VV"*:'
         type: string
         custom: []
     cleanBodyParameters:
       email: john@example.com
-      password: 5%!QAkY<me)c
+      password: 'CNzThL~)sS(3I8VV"*:'
     fileParameters: []
     responses:
       -
@@ -73,7 +74,10 @@ endpoints:
         description: ''
         custom: []
     responseFields: []
-    auth: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 4dD6ega6avk8PbZ3fhcE1V5'
     controller: null
     method: null
     route: null

@@ -23,8 +23,10 @@ class UsersController extends Controller
      * 
      * API docs:
      *
-     * Create a new user.
+     * @group User
      *
+     * @authenticated
+     * 
      * This endpoint allows you to create a new user. The user's email and password should be provided in the request body.
      *
      * @bodyParam email string required The email address of the user. Example: john@example.com

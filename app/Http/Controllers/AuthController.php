@@ -55,6 +55,9 @@ class AuthController extends Controller
 
             // Clear all failed login attempts for the user.
             $this->clearFailedAttempts($user);
+
+            // Revoke any existing tokens for the user.
+            $this->revokeAllUserTokens($user);
     
             // Create a new API token for the authenticated user.
             $token = $user->createToken('api-token')->accessToken;
@@ -134,6 +137,20 @@ class AuthController extends Controller
     {
         // Assuming you have a FailedLogin model and user_id column to identify the user.
         FailedLogin::where('user_id', $user->id)->delete();
+    }
+
+    /**
+     * Revoke all tokens for the given user.
+     *
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user The authenticated user object.
+     *
+     * @return void
+     */
+    private function revokeAllUserTokens($user): void
+    {
+        $user->tokens->each(function ($token) {
+            $token->delete();
+        });
     }
 
     

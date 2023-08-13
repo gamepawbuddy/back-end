@@ -54,7 +54,7 @@ paths:
                 password:
                   type: string
                   description: 'The password of the user.'
-                  example: 8SC<v~=WLz
+                  example: '|8cR%u'
               required:
                 - email
                 - password
@@ -1996,7 +1996,7 @@ paths:
         in: path
         name: token
         description: ''
-        example: aut
+        example: voluptatum
         required: true
         schema:
           type: string
@@ -2043,9 +2043,103 @@ paths:
                 email:
                   type: string
                   description: 'The email address of the user.'
-                  example: pamela.dickens@example.com
+                  example: kathryn88@example.org
               required:
                 - email
+      security: []
+  /api/v1/reset-password:
+    post:
+      summary: 'Reset the user''s password.'
+      operationId: resetTheUsersPassword
+      description: "This function handles the password reset process. It first validates the incoming request data,\nensuring the new password meets certain criteria. It then checks if the provided reset token\nexists in the PasswordReset table. If the token is valid, the function deletes the token record,\nfinds the user by their ID, and updates their password."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Password reset successful!'
+                properties:
+                  message:
+                    type: string
+                    example: 'Password reset successful!'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Invalid or expired token.'
+                properties:
+                  message:
+                    type: string
+                    example: 'Invalid or expired token.'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User not found.'
+                properties:
+                  message:
+                    type: string
+                    example: 'User not found.'
+        422:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  errors:
+                    password:
+                      - 'The password format is invalid.'
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      password:
+                        type: array
+                        example:
+                          - 'The password format is invalid.'
+                        items:
+                          type: string
+      tags:
+        - Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: 'The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+                  example: 'C^$gXa?."'
+                password_confirmation:
+                  type: string
+                  description: 'The password confirmation. Must match the password.'
+                  example: ut
+                user_id:
+                  type: string
+                  description: 'The ID of the user whose password is being reset.'
+                  example: adipisci
+                token:
+                  type: string
+                  description: 'The password reset token.'
+                  example: temporibus
+              required:
+                - password
+                - password_confirmation
+                - user_id
+                - token
       security: []
   /api/v1/create-user:
     post:
@@ -2133,7 +2227,7 @@ paths:
                 password:
                   type: string
                   description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
-                  example: 'P@*ni31k@nuo`HM{k>&'
+                  example: ;c+1smN%V7+_Y8\
               required:
                 - email
                 - password

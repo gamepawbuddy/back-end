@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "gamepawbuddy",
-        "_postman_id": "ed944fe3-76b5-49b3-8edd-0c910be5ae84",
+        "_postman_id": "8b3e0e18-668d-4282-b45d-a8987cd213c8",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"8SC<v~=WLz\"}"
+                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"|8cR%u\"}"
                         },
                         "description": "",
                         "auth": {
@@ -169,7 +169,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "aut",
+                                    "value": "voluptatum",
                                     "description": ""
                                 }
                             ]
@@ -237,7 +237,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"pamela.dickens@example.com\"}"
+                            "raw": "{\"email\":\"kathryn88@example.org\"}"
                         },
                         "description": "This endpoint allows sending a reset password link to the user's email.\n\nAPI docs:",
                         "auth": {
@@ -255,6 +255,62 @@
                             "header": [],
                             "code": 400,
                             "body": "{\n    \"message\": \"User not found with the provided email.\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Reset the user's password.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/reset-password",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/reset-password"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"password\":\"C^$gXa?.\\\"\",\"password_confirmation\":\"ut\",\"user_id\":\"adipisci\",\"token\":\"temporibus\"}"
+                        },
+                        "description": "This function handles the password reset process. It first validates the incoming request data,\nensuring the new password meets certain criteria. It then checks if the provided reset token\nexists in the PasswordReset table. If the token is valid, the function deletes the token record,\nfinds the user by their ID, and updates their password.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"message\": \"Password reset successful!\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n  \"message\": \"Invalid or expired token.\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n  \"message\": \"User not found.\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n  \"errors\": {\n    \"password\": [\"The password format is invalid.\"]\n  }\n}",
                             "name": ""
                         }
                     ]
@@ -287,7 +343,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"john@example.com\",\"password\":\"P@*ni31k@nuo`HM{k>&\"}"
+                            "raw": "{\"email\":\"john@example.com\",\"password\":\";c+1smN%V7+_Y8\\\\\"}"
                         },
                         "description": ""
                     },

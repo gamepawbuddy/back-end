@@ -30,6 +30,9 @@ Route::prefix('v1')->group(function () {
      // Route to display the password reset form with a given token
      Route::get('show-reset-password-form/{token}', [PasswordResetController::class, 'showResetForm']);
 
+    // Route to display the password reset form with a given token
+     Route::post('reset-password', [PasswordResetController::class, 'resetPassword']);
+
 });
 
 

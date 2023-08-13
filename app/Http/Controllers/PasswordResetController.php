@@ -55,7 +55,7 @@ class PasswordResetController extends Controller
     private function createPasswordResetToken(string $email): string
     {
         // Create a random token
-        $token = Str::random(100); // Assuming you're using Laravel's Str helper
+        $token = Str::random(255); // Assuming you're using Laravel's Str helper
 
         // Store email, token and created_at in PasswordReset model
         PasswordReset::create([
@@ -93,6 +93,94 @@ class PasswordResetController extends Controller
     
         // Redirect to the reset form with the user's ID and token attached as parameters.
         return redirect()->to("reset-form?ref={$user->id}&token={$token}");
+    }
+
+
+    /**
+     * Reset the user's password.
+     *
+     * This function handles the password reset process. It first validates the incoming request data,
+     * ensuring the new password meets certain criteria. It then checks if the provided reset token
+     * exists in the PasswordReset table. If the token is valid, the function deletes the token record,
+     * finds the user by their ID, and updates their password.
+     *
+     * @group Password
+     * @header Accept application/json
+     * @header Content-Type application/json
+     * 
+     * @bodyParam password string required The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.
+     * @bodyParam password_confirmation string required The password confirmation. Must match the password.
+     * @bodyParam user_id string required The ID of the user whose password is being reset.
+     * @bodyParam token string required The password reset token.
+     * 
+     * @response 200 {
+     *   "message": "Password reset successful!"
+     * }
+     * @response 400 {
+     *   "message": "Invalid or expired token."
+     * }
+     * @response 404 {
+     *   "message": "User not found."
+     * }
+     * @response 422 {
+     *   "errors": {
+     *     "password": ["The password format is invalid."]
+     *   }
+     * }
+     *
+     * @param Request $request The incoming request object, which should contain the new password, password confirmation, user ID, and reset token.
+     * @return JsonResponse Returns a JSON response indicating the result of the password reset attempt.
+     */
+    public function resetPassword(Request $request)
+    {
+        try {
+            // Validate the incoming request data
+            $request->validate([
+                'password' => [
+                    'required',
+                    'string',
+                    'min:8',              // Minimum length of 8 characters
+                    'regex:/[A-Z]/',      // Requires at least one uppercase letter
+                    'regex:/[a-z]/',      // Requires at least one lowercase letter
+                    'regex:/[0-9]/',      // Requires at least one number
+                    'regex:/[\W]+/',      // Requires at least one special character
+                    'confirmed'           // Requires the field 'password_confirmation' to match
+                ],
+                'password_confirmation' => 'required',
+                'user_id' => 'required',
+                'token' => 'required'
+            ]);
+
+            // Check if the token exists in the PasswordReset table
+            $passwordReset = PasswordReset::where('token', $request->token)->first();
+
+            // If the token doesn't exist, return an error response
+            if (!$passwordReset) {
+                return response()->json(['message' => 'Invalid or expired token.'], 400);
+            }
+
+           // Delete the matching record from the PasswordReset table based on the token
+            PasswordReset::where('token', $request->token)->delete();
+
+            // Find the user by user_id
+            $user = Users::find($request->user_id);
+
+            // If the user doesn't exist, return an error response
+            if (!$user) {
+                return response()->json(['message' => 'User not found.'], 404);
+            }
+
+            // Update the user's password and save the changes
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            // Return a success response
+            return response()->json(['message' => 'Password reset successful'], 200);
+
+        } catch (ValidationException $e) {
+            // If validation fails, return the validation errors
+            return response()->json(['errors' => $e->errors()], 422);
+        }
     }
     
 }

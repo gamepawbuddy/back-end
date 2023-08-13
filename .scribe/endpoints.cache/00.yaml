@@ -802,11 +802,11 @@ endpoints:
         name: token
         description: ''
         required: true
-        example: aut
+        example: voluptatum
         type: string
         custom: []
     cleanUrlParameters:
-      token: aut
+      token: voluptatum
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

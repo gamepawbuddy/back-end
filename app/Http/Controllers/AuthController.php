@@ -42,11 +42,19 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
+          // Check if the user has exceeded the number of allowed failed attempts.
+        if ($this->hasExceededFailedAttempts($credentials['email'])) {
+            return response()->json(['error' => 'Too many failed attempts. Please try again later.'], 429);
+        }
     
         // Attempt to authenticate the user with the provided credentials.
         if (Auth::attempt($credentials)) {
             // If authentication is successful, retrieve the authenticated user.
             $user = Auth::user();
+
+            // Clear all failed login attempts for the user.
+            $this->clearFailedAttempts($user);
     
             // Create a new API token for the authenticated user.
             $token = $user->createToken('api-token')->accessToken;
@@ -71,7 +79,7 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    protected function logFailedAttempt(array $credentials, Request $request): void
+    private function logFailedAttempt(array $credentials, Request $request): void
     {
         $user = Users::where('email', $credentials['email'])->first();
 
@@ -82,6 +90,53 @@ class AuthController extends Controller
             ]);
         }
     }
+
+    /**
+     * Determines if a user has exceeded the allowed number of failed login attempts 
+     * within the last 10 minutes.
+     *
+     * @param string $email The email address of the user to check.
+     *
+     * @return bool True if the user has made 5 or more failed login attempts in the 
+     *              last 10 minutes, otherwise false.
+     *
+     * @throws \Illuminate\Database\QueryException If there's an issue with the database query.
+     *
+     * Usage:
+     *   if (hasExceededFailedAttempts('user@example.com')) {
+     *       // Handle excessive failed attempts (e.g., lock account or show captcha).
+     *   }
+     */
+    private function hasExceededFailedAttempts($email): bool
+    {
+        // Retrieve the user's ID using the provided email.
+        $userId = Users::where('email', $email)->value('id');
+
+        // If the user doesn't exist, return false.
+        if (!$userId) {
+            return false;
+        }
+
+        // Check the number of failed attempts in the last 10 minutes using the user's ID.
+        return FailedLogin::where('user_id', $userId)
+                        ->where('created_at', '>=', now()->subMinutes(10))
+                        ->count() >= 5;
+    }
+
+    /**
+     * Clear all failed login attempts for the given user.
+     *
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user The authenticated user object.
+
+     * @return void
+     */
+    private function clearFailedAttempts($user): void
+    {
+        // Assuming you have a FailedLogin model and user_id column to identify the user.
+        FailedLogin::where('user_id', $user->id)->delete();
+    }
+
+    
 
     /**
      * Get the authenticated user's tokens.

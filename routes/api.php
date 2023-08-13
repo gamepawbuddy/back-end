@@ -18,21 +18,28 @@ use App\Http\Controllers\PasswordResetController;
 
 Route::prefix('v1')->group(function () {
     
-    // User creation route
+    // User routes:
+
+    // Create user 
     Route::post('create-user', [UsersController::class, 'create']);
+
+    // Authentication routes:
 
     // Authentication route for obtaining API tokens
     Route::post('login', [AuthController::class, 'login']);
 
-     // Password reset route
-     Route::post('user-password-reset-email', [PasswordResetController::class, 'sendResetPasswordByEmail']);
+    // Password reset routes:
 
-     // Route to display the password reset form with a given token
-     Route::get('show-reset-password-form/{token}', [PasswordResetController::class, 'showResetForm']);
-
+    // Password reset email
+    Route::post('user-password-reset-email', [PasswordResetController::class, 'sendResetPasswordByEmail']);
+    
     // Route to display the password reset form with a given token
-     Route::post('reset-password', [PasswordResetController::class, 'resetPassword']);
+    Route::get('show-reset-password-form/{token}', [PasswordResetController::class, 'showResetForm']);
+    // Route to display the password reset form with a given token
+    
+    Route::post('reset-password', [PasswordResetController::class, 'resetPassword']);
 
+    
 });
 
 

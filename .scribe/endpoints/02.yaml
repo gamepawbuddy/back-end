@@ -1,0 +1,67 @@
+name: 'Authenticating requests'
+description: 'This endpoint allows users to authenticate and retrieve an API token. You must provide the user''s email and password in the request body.'
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/login
+    metadata:
+      groupName: 'Authenticating requests'
+      groupDescription: 'This endpoint allows users to authenticate and retrieve an API token. You must provide the user''s email and password in the request body.'
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Authenticate the user and issue an API token.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'The email address of the user.'
+        required: true
+        example: bruno@example.com
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'The password of the user.'
+        required: true
+        example: '''}''5Ty3q35W9'
+        type: string
+        custom: []
+    cleanBodyParameters:
+      email: bruno@example.com
+      password: '''}''5Ty3q35W9'
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+           "token": "api_token_here"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+           "error": "Invalid credentials"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

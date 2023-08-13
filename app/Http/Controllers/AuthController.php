@@ -153,8 +153,6 @@ class AuthController extends Controller
         });
     }
 
-    
-
     /**
      * Get the authenticated user's tokens.
      *

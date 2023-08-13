@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetPasswordMail;
+use Illuminate\Http\JsonResponse;
 
 /**
  * UsersController handles the creation and management of users.
@@ -119,4 +122,52 @@ class UsersController extends Controller
             return false;
         }
     }
+
+
+    /**
+     * Send a reset password link via email to the user.
+     *
+     * This endpoint allows sending a reset password link to the user's email.
+     *
+     * API docs:
+     *
+     * @group User
+     * @bodyParam email string required The email address of the user.
+     *
+     * @response 200 {
+     *     "message": "Password reset email sent successfully."
+     * }
+     * @response 400 {
+     *     "message": "User not found with the provided email."
+     * }
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendResetPasswordByEmail(Request $request): JsonResponse
+    {
+        // Validate the request data
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        // Find the user based on the provided email
+        $user = Users::where('email', $request->email)->first();
+
+        // If no user is found with the given email, return a response with an error message
+        if (!$user) {
+            return response()->json(['message' => trans('passwords.user')], 400);
+        }
+
+        // Generate a reset password token for the user
+        $token = app('auth.password.broker')->createToken($user);
+
+        // Send the reset password email to the user
+        Mail::to($request->email)->send(new ResetPasswordMail($token));
+
+        // Return a success response after sending the reset password email
+        return response()->json(['message' => trans('passwords.sent')]);
+    }
+
+    
 }

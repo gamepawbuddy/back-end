@@ -36,12 +36,12 @@ endpoints:
         name: password
         description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
         required: true
-        example: 'aLM(%-i9-5&y88^[u:s'
+        example: 'P@*ni31k@nuo`HM{k>&'
         type: string
         custom: []
     cleanBodyParameters:
       email: john@example.com
-      password: 'aLM(%-i9-5&y88^[u:s'
+      password: 'P@*ni31k@nuo`HM{k>&'
     fileParameters: []
     responses:
       -
@@ -79,66 +79,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer V1Evd6ak463fDPZehac8b5g'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/v1/user-password-reset
-    metadata:
-      groupName: User
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Send a reset password link via email to the user.'
-      description: |-
-        This endpoint allows sending a reset password link to the user's email.
-
-        API docs:
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      email:
-        name: email
-        description: 'The email address of the user.'
-        required: true
-        example: mraz.izabella@example.net
-        type: string
-        custom: []
-    cleanBodyParameters:
-      email: mraz.izabella@example.net
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-              "message": "Password reset email sent successfully."
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 400
-        content: |-
-          {
-              "message": "User not found with the provided email."
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth: []
+      - 'Bearer dkP4Z3gEa8vV6e516cfbDah'
     controller: null
     method: null
     route: null

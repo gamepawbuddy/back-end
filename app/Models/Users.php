@@ -4,30 +4,60 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\UserActivity; 
-use Laravel\Passport\HasApiTokens; 
+use App\Models\UserActivity;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str; // Import the Str facade for UUID generation
 
-/**
- * App\Models\Users
- *
- * Represents a user in the application.
- *
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserActivity[] $activitiesPerformed
- * @property-read int|null $activities_performed_count
- *
- * @mixin \Eloquent
- */
 class Users extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable;
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified' => 'boolean',
+        'phone_verified' => 'boolean',
+        'favorite_dog_breeds' => 'array',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
+
+    /**
+     * Boot the model.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Automatically generate a UUID when creating a new user
+        static::creating(function ($model) {
+            if (!$model->getKey()) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
+    }
 
     /**
      * Get all the activities performed by the user.
-     *
-     * This relationship is polymorphic, meaning that this user can be associated
-     * with activities in the `user_activity` table through the `performed_by` relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

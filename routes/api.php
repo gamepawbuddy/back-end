@@ -16,39 +16,29 @@ use App\Http\Controllers\PasswordResetController;
 |
 */
 
+// Grouping routes under the 'v1' version prefix
 Route::prefix('v1')->group(function () {
+
+    // Grouping user-related routes under the 'user' prefix
+    Route::prefix('user')->group(function () {
+        // Route for creating users
+        Route::post('create', [UsersController::class, 'create']);
+    });
     
-    // User routes:
-
-    // Create user 
-    Route::post('create-user', [UsersController::class, 'create']);
-
-    // Authentication routes:
-
-    // Authentication route for obtaining API tokens
-    Route::post('login', [AuthController::class, 'login']);
-
-    // Password reset routes:
-
-    // Password reset email
-    Route::post('user-password-reset-email', [PasswordResetController::class, 'sendResetPasswordByEmail']);
+    // Grouping login-related routes under the 'login' prefix
+    Route::prefix('login')->group(function () {
+        // Authentication route for obtaining API tokens
+        Route::post('user', [AuthController::class, 'login']);
+    });
     
-    // Route to display the password reset form with a given token
-    Route::get('show-reset-password-form/{token}', [PasswordResetController::class, 'showResetForm']);
-    // Route to display the password reset form with a given token
-    
-    Route::post('reset-password', [PasswordResetController::class, 'resetPassword']);
-
+    // Grouping password-related routes under the 'password' prefix
+    Route::prefix('password')->group(function () {
+        // Route for sending reset password email
+        Route::post('reset-email', [PasswordResetController::class, 'sendResetPasswordByEmail']);
+        // Route to display the password reset form with a given token
+        Route::get('reset-password-form/{token}', [PasswordResetController::class, 'showResetForm']);
+        // Route for actually resetting the password
+        Route::post('reset-password', [PasswordResetController::class, 'resetPassword']);
+    });
     
 });
-
-
-
-// Route::middleware('auth:sanctum')->group(function () {
-
-//     // Route to get the authenticated user's tokens
-//     Route::get('tokens', [AuthController::class, 'getUserTokens']);
-
-//     // Route to revoke a specific token
-//     Route::delete('tokens/{token_id}', [AuthController::class, 'revokeToken']);
-// });

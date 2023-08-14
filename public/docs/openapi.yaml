@@ -7,7 +7,7 @@ servers:
   -
     url: 'http://gamepawbuddy.local'
 paths:
-  /api/v1/login:
+  /api/v1/login/user:
     post:
       summary: 'Authenticate the user and issue an API token.'
       operationId: authenticateTheUserAndIssueAnAPIToken
@@ -54,7 +54,7 @@ paths:
                 password:
                   type: string
                   description: 'The password of the user.'
-                  example: '|8cR%u'
+                  example: '00iG9]"4d,2c!Al'
               required:
                 - email
                 - password
@@ -1347,7 +1347,7 @@ paths:
       tags:
         - Endpoints
       security: []
-  '/api/v1/show-reset-password-form/{token}':
+  '/api/v1/password/reset-password-form/{token}':
     get:
       summary: 'Display the password reset form.'
       operationId: displayThePasswordResetForm
@@ -1996,11 +1996,11 @@ paths:
         in: path
         name: token
         description: ''
-        example: voluptatum
+        example: harum
         required: true
         schema:
           type: string
-  /api/v1/user-password-reset-email:
+  /api/v1/password/reset-email:
     post:
       summary: 'Send a reset password link via email to the user.'
       operationId: sendAResetPasswordLinkViaEmailToTheUser
@@ -2043,11 +2043,11 @@ paths:
                 email:
                   type: string
                   description: 'The email address of the user.'
-                  example: kathryn88@example.org
+                  example: jeffry77@example.com
               required:
                 - email
       security: []
-  /api/v1/reset-password:
+  /api/v1/password/reset-password:
     post:
       summary: 'Reset the user''s password.'
       operationId: resetTheUsersPassword
@@ -2122,26 +2122,26 @@ paths:
                 password:
                   type: string
                   description: 'The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
-                  example: 'C^$gXa?."'
+                  example: blqM.7O+soUyYR
                 password_confirmation:
                   type: string
                   description: 'The password confirmation. Must match the password.'
-                  example: ut
+                  example: optio
                 user_id:
                   type: string
                   description: 'The ID of the user whose password is being reset.'
-                  example: adipisci
+                  example: corrupti
                 token:
                   type: string
                   description: 'The password reset token.'
-                  example: temporibus
+                  example: voluptas
               required:
                 - password
                 - password_confirmation
                 - user_id
                 - token
       security: []
-  /api/v1/create-user:
+  /api/v1/user/create:
     post:
       summary: 'Handle the user creation request.'
       operationId: handleTheUserCreationRequest
@@ -2227,7 +2227,7 @@ paths:
                 password:
                   type: string
                   description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
-                  example: ;c+1smN%V7+_Y8\
+                  example: '0|V[U0_{biUM58xC5w'
               required:
                 - email
                 - password

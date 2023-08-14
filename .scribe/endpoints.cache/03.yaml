@@ -6,7 +6,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/v1/user-password-reset-email
+    uri: api/v1/password/reset-email
     metadata:
       groupName: Password
       groupDescription: ''
@@ -31,11 +31,11 @@ endpoints:
         name: email
         description: 'The email address of the user.'
         required: true
-        example: kathryn88@example.org
+        example: jeffry77@example.com
         type: string
         custom: []
     cleanBodyParameters:
-      email: kathryn88@example.org
+      email: jeffry77@example.com
     fileParameters: []
     responses:
       -
@@ -65,7 +65,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/v1/reset-password
+    uri: api/v1/password/reset-password
     metadata:
       groupName: Password
       groupDescription: ''
@@ -91,35 +91,35 @@ endpoints:
         name: password
         description: 'The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
         required: true
-        example: 'C^$gXa?."'
+        example: blqM.7O+soUyYR
         type: string
         custom: []
       password_confirmation:
         name: password_confirmation
         description: 'The password confirmation. Must match the password.'
         required: true
-        example: ut
+        example: optio
         type: string
         custom: []
       user_id:
         name: user_id
         description: 'The ID of the user whose password is being reset.'
         required: true
-        example: adipisci
+        example: corrupti
         type: string
         custom: []
       token:
         name: token
         description: 'The password reset token.'
         required: true
-        example: temporibus
+        example: voluptas
         type: string
         custom: []
     cleanBodyParameters:
-      password: 'C^$gXa?."'
-      password_confirmation: ut
-      user_id: adipisci
-      token: temporibus
+      password: blqM.7O+soUyYR
+      password_confirmation: optio
+      user_id: corrupti
+      token: voluptas
     fileParameters: []
     responses:
       -

@@ -782,7 +782,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/v1/show-reset-password-form/{token}'
+    uri: 'api/v1/password/reset-password-form/{token}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -800,11 +800,11 @@ endpoints:
         name: token
         description: ''
         required: true
-        example: voluptatum
+        example: harum
         type: string
         custom: []
     cleanUrlParameters:
-      token: voluptatum
+      token: harum
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

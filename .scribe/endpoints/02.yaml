@@ -4,7 +4,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/v1/login
+    uri: api/v1/login/user
     metadata:
       groupName: 'Authenticating requests'
       groupDescription: 'This endpoint allows users to authenticate and retrieve an API token. You must provide the user''s email and password in the request body.'
@@ -33,12 +33,12 @@ endpoints:
         name: password
         description: 'The password of the user.'
         required: true
-        example: '|8cR%u'
+        example: '00iG9]"4d,2c!Al'
         type: string
         custom: []
     cleanBodyParameters:
       email: bruno@example.com
-      password: '|8cR%u'
+      password: '00iG9]"4d,2c!Al'
     fileParameters: []
     responses:
       -

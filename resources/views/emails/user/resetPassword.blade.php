@@ -57,7 +57,8 @@
             <div class="content">
                 <p>Hello,</p>
                 <p>We received a request to reset your password. Click the button below to set a new password:</p>
-                <a href="{{ url('api/v1/show-reset-password-form', $token) }}" class="button">Reset Password</a>
+                <a href="{{ url('api/v1/password/reset-password-form', $token) }}" class="button">Reset
+                    Password</a>
                 <p>If you didn't request a password reset, please ignore this email or contact support at
                     gamepawbuddy@gmail.com if you have any
                     concerns.</p>

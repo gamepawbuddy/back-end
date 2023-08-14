@@ -4,7 +4,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/v1/create-user
+    uri: api/v1/user/create
     metadata:
       groupName: User
       groupDescription: ''
@@ -34,12 +34,12 @@ endpoints:
         name: password
         description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
         required: true
-        example: ;c+1smN%V7+_Y8\
+        example: '0|V[U0_{biUM58xC5w'
         type: string
         custom: []
     cleanBodyParameters:
       email: john@example.com
-      password: ;c+1smN%V7+_Y8\
+      password: '0|V[U0_{biUM58xC5w'
     fileParameters: []
     responses:
       -
@@ -77,7 +77,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer k8aa3Vh6ceD54d6EPg1fvZb'
+      - 'Bearer cdk8Zvh36P6EbVf1g5Daae4'
     controller: null
     method: null
     route: null

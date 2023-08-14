@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordMail;
 use Illuminate\Http\JsonResponse;
+use App\Mail\NewUserWelcomeMail;
 
 /**
  * UsersController handles the creation and management of users.
@@ -64,6 +65,7 @@ class UsersController extends Controller
 
             // Attempt to create the user.
             if ($this->createUser($userData)) {
+                Mail::to($userData['email'])->send(new NewUserWelcomeMail());
                 return response()->json(['message' => 'User created successfully'], 201);
             }
 

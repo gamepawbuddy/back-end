@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "gamepawbuddy",
-        "_postman_id": "8b3e0e18-668d-4282-b45d-a8987cd213c8",
+        "_postman_id": "f467f249-86c8-4e06-97df-6b30c0413340",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -24,9 +24,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/v1\/login",
+                            "path": "api\/v1\/login\/user",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/v1\/login"
+                            "raw": "{{baseUrl}}\/api\/v1\/login\/user"
                         },
                         "method": "POST",
                         "header": [
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"|8cR%u\"}"
+                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"00iG9]\\\"4d,2c!Al\"}"
                         },
                         "description": "",
                         "auth": {
@@ -162,14 +162,14 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/v1\/show-reset-password-form\/:token",
+                            "path": "api\/v1\/password\/reset-password-form\/:token",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/v1\/show-reset-password-form\/:token",
+                            "raw": "{{baseUrl}}\/api\/v1\/password\/reset-password-form\/:token",
                             "variable": [
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "voluptatum",
+                                    "value": "harum",
                                     "description": ""
                                 }
                             ]
@@ -220,9 +220,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/v1\/user-password-reset-email",
+                            "path": "api\/v1\/password\/reset-email",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/v1\/user-password-reset-email"
+                            "raw": "{{baseUrl}}\/api\/v1\/password\/reset-email"
                         },
                         "method": "POST",
                         "header": [
@@ -237,7 +237,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"kathryn88@example.org\"}"
+                            "raw": "{\"email\":\"jeffry77@example.com\"}"
                         },
                         "description": "This endpoint allows sending a reset password link to the user's email.\n\nAPI docs:",
                         "auth": {
@@ -264,9 +264,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/v1\/reset-password",
+                            "path": "api\/v1\/password\/reset-password",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/v1\/reset-password"
+                            "raw": "{{baseUrl}}\/api\/v1\/password\/reset-password"
                         },
                         "method": "POST",
                         "header": [
@@ -281,7 +281,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"password\":\"C^$gXa?.\\\"\",\"password_confirmation\":\"ut\",\"user_id\":\"adipisci\",\"token\":\"temporibus\"}"
+                            "raw": "{\"password\":\"blqM.7O+soUyYR\",\"password_confirmation\":\"optio\",\"user_id\":\"corrupti\",\"token\":\"voluptas\"}"
                         },
                         "description": "This function handles the password reset process. It first validates the incoming request data,\nensuring the new password meets certain criteria. It then checks if the provided reset token\nexists in the PasswordReset table. If the token is valid, the function deletes the token record,\nfinds the user by their ID, and updates their password.",
                         "auth": {
@@ -326,9 +326,9 @@
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/v1\/create-user",
+                            "path": "api\/v1\/user\/create",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/v1\/create-user"
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/create"
                         },
                         "method": "POST",
                         "header": [
@@ -343,7 +343,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"john@example.com\",\"password\":\";c+1smN%V7+_Y8\\\\\"}"
+                            "raw": "{\"email\":\"john@example.com\",\"password\":\"0|V[U0_{biUM58xC5w\"}"
                         },
                         "description": ""
                     },

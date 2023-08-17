@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Users;
 use App\Models\FailedLogin;
+use App\Models\OauthAccessToken;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
+use Laravel\Passport\Token;
+use Lcobucci\JWT\Configuration;
 
 class AuthController extends Controller
 {
-
 
     /**
      * Authenticate the user and issue an API token.
@@ -35,7 +37,7 @@ class AuthController extends Controller
      *  "error": "Invalid credentials"
      * }
      */
-    public function login(Request $request): JsonResponse
+    public function loginUser(Request $request): JsonResponse
     {
         // Validate the incoming request data for email and password.
         $credentials = $request->validate([
@@ -72,8 +74,6 @@ class AuthController extends Controller
         // Return an error response indicating invalid credentials.
         return response()->json(['error' => 'Invalid credentials'], 401);
     }
-    
-
     
     /**
      * Log a failed login attempt for a user.
@@ -152,6 +152,67 @@ class AuthController extends Controller
             $token->delete();
         });
     }
+
+    /**
+     * Handle user logout by revoking the authentication token.
+     *
+     * @authenticated
+     * 
+     * @param \Illuminate\Http\Request $request The incoming HTTP request.
+     * @return \Illuminate\Http\JsonResponse The JSON response indicating the logout status.
+     *
+     * @response 200 {
+     *     "message": "Logged out successfully"
+     * }
+     * @response 401 {
+     *     "error": "Unauthorized"
+     * }
+     */
+    public function logoutUser(Request $request)
+    {
+        // Check if the Authorization header is present in the request
+        if (!$request->hasHeader('Authorization')) {
+            // Respond with an Unauthorized error if the header is missing
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+    
+        // Extract the JWT token from the Authorization header by removing the "Bearer" prefix
+        $authorizationHeader = $request->header('Authorization');
+        $jwt = str_replace('Bearer ', '', $authorizationHeader);
+    
+        try {
+            // Fetch the JWT configuration for parsing the token
+            $config = Configuration::forUnsecuredSigner();
+    
+            // Parse the JWT token to extract its claims
+            $jwtToken = $config->parser()->parse($jwt);
+    
+            // Get the jti (JWT ID) claim which represents a unique identifier for the token
+            $jti = $jwtToken->claims()->get('jti');
+    
+            // Attempt to find the token in the database using its jti
+            $token = Token::find($jti);
+            if ($token) {
+                // Mark the token as revoked in the database
+                $token->revoked = true;
+                $token->save();
+    
+                // Respond with a success message
+                return response()->json(['message' => 'Logged out successfully']);
+            } else {
+                // Respond with an error if the token is not found in the database
+                return response()->json(['error' => 'Token not found'], 404);
+            }
+    
+        } catch (\Exception $e) {
+            // Handle any exceptions that occur during token parsing and respond with an error
+            return response()->json(['error' => 'Invalid token'], 400);
+        }
+    }
+    
+    
+    
+    
 
     /**
      * Get the authenticated user's tokens.

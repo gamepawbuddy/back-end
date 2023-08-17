@@ -54,7 +54,7 @@ paths:
                 password:
                   type: string
                   description: 'The password of the user.'
-                  example: '00iG9]"4d,2c!Al'
+                  example: /wxBxq$kgl>8u6A3I
               required:
                 - email
                 - password
@@ -1347,6 +1347,46 @@ paths:
       tags:
         - Endpoints
       security: []
+  /api/v1/logout/user:
+    post:
+      summary: 'Handle user logout by revoking the authentication token.'
+      operationId: handleUserLogoutByRevokingTheAuthenticationToken
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Logged out successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged out successfully'
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  error: Unauthorized
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+      tags:
+        - Endpoints
   '/api/v1/password/reset-password-form/{token}':
     get:
       summary: 'Display the password reset form.'
@@ -1996,7 +2036,7 @@ paths:
         in: path
         name: token
         description: ''
-        example: harum
+        example: ex
         required: true
         schema:
           type: string
@@ -2043,7 +2083,7 @@ paths:
                 email:
                   type: string
                   description: 'The email address of the user.'
-                  example: jeffry77@example.com
+                  example: ezekiel73@example.com
               required:
                 - email
       security: []
@@ -2122,19 +2162,19 @@ paths:
                 password:
                   type: string
                   description: 'The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
-                  example: blqM.7O+soUyYR
+                  example: fFe`GMku
                 password_confirmation:
                   type: string
                   description: 'The password confirmation. Must match the password.'
-                  example: optio
+                  example: totam
                 user_id:
                   type: string
                   description: 'The ID of the user whose password is being reset.'
-                  example: corrupti
+                  example: quis
                 token:
                   type: string
                   description: 'The password reset token.'
-                  example: voluptas
+                  example: ex
               required:
                 - password
                 - password_confirmation
@@ -2227,7 +2267,7 @@ paths:
                 password:
                   type: string
                   description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
-                  example: '0|V[U0_{biUM58xC5w'
+                  example: '3{/}UJ'
               required:
                 - email
                 - password

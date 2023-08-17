@@ -35,12 +35,12 @@ endpoints:
         name: password
         description: 'The password of the user.'
         required: true
-        example: '00iG9]"4d,2c!Al'
+        example: /wxBxq$kgl>8u6A3I
         type: string
         custom: []
     cleanBodyParameters:
       email: bruno@example.com
-      password: '00iG9]"4d,2c!Al'
+      password: /wxBxq$kgl>8u6A3I
     fileParameters: []
     responses:
       -

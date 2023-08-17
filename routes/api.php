@@ -28,7 +28,12 @@ Route::prefix('v1')->group(function () {
     // Grouping login-related routes under the 'login' prefix
     Route::prefix('login')->group(function () {
         // Authentication route for obtaining API tokens
-        Route::post('user', [AuthController::class, 'login']);
+        Route::post('user', [AuthController::class, 'loginUser']);
+    });
+
+    Route::prefix('logout')->group(function () {
+        // Authentication route for logging out
+        Route::post('user', [AuthController::class, 'logoutUser']);
     });
     
     // Grouping password-related routes under the 'password' prefix

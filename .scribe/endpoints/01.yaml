@@ -34,12 +34,12 @@ endpoints:
         name: password
         description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
         required: true
-        example: '0|V[U0_{biUM58xC5w'
+        example: '3{/}UJ'
         type: string
         custom: []
     cleanBodyParameters:
       email: john@example.com
-      password: '0|V[U0_{biUM58xC5w'
+      password: '3{/}UJ'
     fileParameters: []
     responses:
       -
@@ -77,7 +77,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer cdk8Zvh36P6EbVf1g5Daae4'
+      - 'Bearer f1bhcZk6avE6e854D3dVPag'
     controller: null
     method: null
     route: null

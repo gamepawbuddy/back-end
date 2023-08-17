@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "gamepawbuddy",
-        "_postman_id": "f467f249-86c8-4e06-97df-6b30c0413340",
+        "_postman_id": "3db0a9a7-04ca-4e2b-b2ca-c2932e0581f6",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"00iG9]\\\"4d,2c!Al\"}"
+                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"\\\/wxBxq$kgl>8u6A3I\"}"
                         },
                         "description": "",
                         "auth": {
@@ -158,6 +158,44 @@
                     ]
                 },
                 {
+                    "name": "Handle user logout by revoking the authentication token.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/logout\/user",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/logout\/user"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"Logged out successfully\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n    \"error\": \"Unauthorized\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
                     "name": "Display the password reset form.",
                     "request": {
                         "url": {
@@ -169,7 +207,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "harum",
+                                    "value": "ex",
                                     "description": ""
                                 }
                             ]
@@ -237,7 +275,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"jeffry77@example.com\"}"
+                            "raw": "{\"email\":\"ezekiel73@example.com\"}"
                         },
                         "description": "This endpoint allows sending a reset password link to the user's email.\n\nAPI docs:",
                         "auth": {
@@ -281,7 +319,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"password\":\"blqM.7O+soUyYR\",\"password_confirmation\":\"optio\",\"user_id\":\"corrupti\",\"token\":\"voluptas\"}"
+                            "raw": "{\"password\":\"fFe`GMku\",\"password_confirmation\":\"totam\",\"user_id\":\"quis\",\"token\":\"ex\"}"
                         },
                         "description": "This function handles the password reset process. It first validates the incoming request data,\nensuring the new password meets certain criteria. It then checks if the provided reset token\nexists in the PasswordReset table. If the token is valid, the function deletes the token record,\nfinds the user by their ID, and updates their password.",
                         "auth": {
@@ -343,7 +381,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"john@example.com\",\"password\":\"0|V[U0_{biUM58xC5w\"}"
+                            "raw": "{\"email\":\"john@example.com\",\"password\":\"3{\\\/}UJ\"}"
                         },
                         "description": ""
                     },

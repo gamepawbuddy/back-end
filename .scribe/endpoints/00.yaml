@@ -781,6 +781,58 @@ endpoints:
     custom: []
   -
     httpMethods:
+      - POST
+    uri: api/v1/logout/user
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Handle user logout by revoking the authentication token.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "message": "Logged out successfully"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+              "error": "Unauthorized"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Zaa4PgDcbfdV38h56e6k1vE'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
       - GET
     uri: 'api/v1/password/reset-password-form/{token}'
     metadata:
@@ -800,11 +852,11 @@ endpoints:
         name: token
         description: ''
         required: true
-        example: harum
+        example: ex
         type: string
         custom: []
     cleanUrlParameters:
-      token: harum
+      token: ex
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

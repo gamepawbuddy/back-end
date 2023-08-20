@@ -17,16 +17,16 @@ class AuthController extends Controller
 {
 
     /**
-     * Authenticate the user and issue an API token.
+     * Authenticate the user and generate an API token.
      *
-     * @group Authenticating requests
+     * @group Authentication
      * 
-     * This endpoint allows users to authenticate and retrieve an API token. You must provide the user's email and password in the request body.
+     * This endpoint allows users to authenticate and obtain an API token. The user's email and password must be provided in the request body.
      *
      * @param  \Illuminate\Http\Request  $request
      * 
-     * @bodyParam email string required The email address of the user. Example: bruno@example.com
-     * @bodyParam password string required The password of the user.
+     * @bodyParam email string required The user's email address. Example: bruno@example.com
+     * @bodyParam password string required The user's password.
      * 
      * @return \Illuminate\Http\JsonResponse
      * 
@@ -48,7 +48,7 @@ class AuthController extends Controller
 
           // Check if the user has exceeded the number of allowed failed attempts.
         if ($this->hasExceededFailedAttempts($credentials['email'])) {
-            return response()->json(['errevokeAllUserTokensror' => 'Too many failed attempts. Please try again later.'], 429);
+            return response()->json(['error' => 'Too many failed attempts. Please try again later.'], 429);
         }
     
         $userActivityController = new UserActivityController();
@@ -62,7 +62,7 @@ class AuthController extends Controller
             // Clear all failed login attempts for the user.
             $this->clearFailedAttempts($user);
 
-            // Revoke any existing tokens for the user.
+            // Revoke any existing tokens for the user and logs the activity.
             $this->revokeAllUserToken($user,$request->ip());
     
             // Create a new API token for the authenticated user.
@@ -222,10 +222,6 @@ class AuthController extends Controller
             return response()->json(['error' => 'Invalid token'], 400);
         }
     }
-    
-    
-    
-    
     
 
     /**

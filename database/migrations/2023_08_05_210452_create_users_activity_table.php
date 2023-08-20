@@ -11,12 +11,13 @@ class CreateUsersActivityTable extends Migration
         Schema::create('user_activity', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('user_id');
-            $table->string('activity_type', 20);
-            $table->dateTime('activity_time');
+            $table->uuid('ip_address');
+            $table->string('activity_type', 50);
             $table->text('activity_details')->nullable();
+            $table->timestamps();
         
             // Polymorphic columns
-            $table->unsignedBigInteger('performed_by_id');
+            $table->uuid('performed_by_id');
             $table->string('performed_by_type');
         
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

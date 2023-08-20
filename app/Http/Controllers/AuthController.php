@@ -6,6 +6,7 @@ use App\Models\Users;
 use App\Models\FailedLogin;
 use App\Models\OauthAccessToken;
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserActivityController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
@@ -47,8 +48,11 @@ class AuthController extends Controller
 
           // Check if the user has exceeded the number of allowed failed attempts.
         if ($this->hasExceededFailedAttempts($credentials['email'])) {
-            return response()->json(['error' => 'Too many failed attempts. Please try again later.'], 429);
+            return response()->json(['errevokeAllUserTokensror' => 'Too many failed attempts. Please try again later.'], 429);
         }
+    
+        $userActivityController = new UserActivityController();
+
     
         // Attempt to authenticate the user with the provided credentials.
         if (Auth::attempt($credentials)) {
@@ -59,14 +63,20 @@ class AuthController extends Controller
             $this->clearFailedAttempts($user);
 
             // Revoke any existing tokens for the user.
-            $this->revokeAllUserTokens($user);
+            $this->revokeAllUserToken($user,$request->ip());
     
             // Create a new API token for the authenticated user.
             $token = $user->createToken('api-token')->accessToken;
-    
+
+            // Log successful login activity.
+            $userActivityController->logActivity($user, 'login_success', [], $request->ip());
+
             // Return the generated token as a response.
             return response()->json(['token' => $token]);
         }
+
+        // Log failed login attempt activity and include IP address.
+        $userActivityController->logActivity($user, 'login_failure', [], $request->ip());
     
         // If authentication fails, log the failed attempt.
         $this->logFailedAttempt($credentials, $request);
@@ -140,16 +150,24 @@ class AuthController extends Controller
     }
 
     /**
-     * Revoke all tokens for the given user.
+     * Revoke all tokens for the given user and log the revocation activity.
      *
      * @param \Illuminate\Contracts\Auth\Authenticatable $user The authenticated user object.
-     *
+     * @param string $ip The IP address from which the revocation is being performed.
      * @return void
      */
-    private function revokeAllUserTokens($user): void
+    private function revokeAllUserToken($user, $ip): void
     {
-        $user->tokens->each(function ($token) {
+        $user->tokens->each(function ($token) use ($user, $ip) {
             $token->delete();
+            $userActivityController = new UserActivityController();
+
+            $userActivityController->logActivity(
+                $user,
+                'revoked_existing_token',
+                ['message' => "Token '. $token .' was revoked when user '. $user->id. ' logged in."],
+                $ip
+            );
         });
     }
 
@@ -170,45 +188,41 @@ class AuthController extends Controller
      */
     public function logoutUser(Request $request)
     {
-        // Check if the Authorization header is present in the request
-        if (!$request->hasHeader('Authorization')) {
-            // Respond with an Unauthorized error if the header is missing
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-    
-        // Extract the JWT token from the Authorization header by removing the "Bearer" prefix
-        $authorizationHeader = $request->header('Authorization');
-        $jwt = str_replace('Bearer ', '', $authorizationHeader);
+        // Use the JWT token attached by the middleware
+        $jwt = $request->jwt;
     
         try {
             // Fetch the JWT configuration for parsing the token
             $config = Configuration::forUnsecuredSigner();
-    
+            
             // Parse the JWT token to extract its claims
             $jwtToken = $config->parser()->parse($jwt);
-    
+            
             // Get the jti (JWT ID) claim which represents a unique identifier for the token
             $jti = $jwtToken->claims()->get('jti');
-    
+            
             // Attempt to find the token in the database using its jti
             $token = Token::find($jti);
             if ($token) {
                 // Mark the token as revoked in the database
                 $token->revoked = true;
                 $token->save();
-    
+                
+                $userActivityController = new UserActivityController();
+                $userActivityController->logActivity($user, 'logout_success', [], $request->ip());
                 // Respond with a success message
                 return response()->json(['message' => 'Logged out successfully']);
             } else {
                 // Respond with an error if the token is not found in the database
                 return response()->json(['error' => 'Token not found'], 404);
             }
-    
+            
         } catch (\Exception $e) {
             // Handle any exceptions that occur during token parsing and respond with an error
             return response()->json(['error' => 'Invalid token'], 400);
         }
     }
+    
     
     
     

@@ -33,7 +33,7 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('logout')->group(function () {
         // Authentication route for logging out
-        Route::post('user', [AuthController::class, 'logoutUser']);
+        Route::post('user', [AuthController::class, 'logoutUser'])->middleware('jwt.auth');
     });
     
     // Grouping password-related routes under the 'password' prefix

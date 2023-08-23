@@ -1,20 +1,17 @@
-name: Password
-description: ''
+name: Authentication
+description: 'This endpoint allows users to authenticate and obtain an API token. The user''s email and password must be provided in the request body.'
 endpoints:
   -
     httpMethods:
       - POST
-    uri: api/v1/password/reset-email
+    uri: api/v1/login/user
     metadata:
-      groupName: Password
-      groupDescription: ''
+      groupName: Authentication
+      groupDescription: 'This endpoint allows users to authenticate and obtain an API token. The user''s email and password must be provided in the request body.'
       subgroup: ''
       subgroupDescription: ''
-      title: 'Send a reset password link via email to the user.'
-      description: |-
-        This endpoint allows sending a reset password link to the user's email.
-
-        API docs:
+      title: 'Authenticate the user and generate an API token.'
+      description: ''
       authenticated: false
       custom: []
     headers:
@@ -27,133 +24,37 @@ endpoints:
     bodyParameters:
       email:
         name: email
-        description: 'The email address of the user.'
+        description: 'The user''s email address.'
         required: true
-        example: ezekiel73@example.com
+        example: bruno@example.com
         type: string
         custom: []
-    cleanBodyParameters:
-      email: ezekiel73@example.com
-    fileParameters: []
-    responses:
-      -
-        status: 200
-        content: |-
-          {
-              "message": "Password reset email sent successfully."
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 400
-        content: |-
-          {
-              "message": "User not found with the provided email."
-          }
-        headers: []
-        description: ''
-        custom: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/v1/password/reset-password
-    metadata:
-      groupName: Password
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Reset the user''s password.'
-      description: |-
-        This function handles the password reset process. It first validates the incoming request data,
-        ensuring the new password meets certain criteria. It then checks if the provided reset token
-        exists in the PasswordReset table. If the token is valid, the function deletes the token record,
-        finds the user by their ID, and updates their password.
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
       password:
         name: password
-        description: 'The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+        description: 'The user''s password.'
         required: true
-        example: fFe`GMku
-        type: string
-        custom: []
-      password_confirmation:
-        name: password_confirmation
-        description: 'The password confirmation. Must match the password.'
-        required: true
-        example: totam
-        type: string
-        custom: []
-      user_id:
-        name: user_id
-        description: 'The ID of the user whose password is being reset.'
-        required: true
-        example: quis
-        type: string
-        custom: []
-      token:
-        name: token
-        description: 'The password reset token.'
-        required: true
-        example: ex
+        example: 'y''r=?Mw?S'
         type: string
         custom: []
     cleanBodyParameters:
-      password: fFe`GMku
-      password_confirmation: totam
-      user_id: quis
-      token: ex
+      email: bruno@example.com
+      password: 'y''r=?Mw?S'
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-            "message": "Password reset successful!"
+           "token": "api_token_here"
           }
         headers: []
         description: ''
         custom: []
       -
-        status: 400
+        status: 401
         content: |-
           {
-            "message": "Invalid or expired token."
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 404
-        content: |-
-          {
-            "message": "User not found."
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 422
-        content: |-
-          {
-            "errors": {
-              "password": ["The password format is invalid."]
-            }
+           "error": "Invalid credentials"
           }
         headers: []
         description: ''

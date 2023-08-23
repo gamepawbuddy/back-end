@@ -1,66 +1,51 @@
-name: 'Authenticating requests'
-description: 'This endpoint allows users to authenticate and retrieve an API token. You must provide the user''s email and password in the request body.'
+name: Premium
+description: ''
 endpoints:
   -
     httpMethods:
-      - POST
-    uri: api/v1/login/user
+      - GET
+    uri: api/v1/user/ispremium
     metadata:
-      groupName: 'Authenticating requests'
-      groupDescription: 'This endpoint allows users to authenticate and retrieve an API token. You must provide the user''s email and password in the request body.'
+      groupName: Premium
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Authenticate the user and issue an API token.'
+      title: |-
+        Check if a user has a premium subscription.
+
+        This endpoint checks if the authenticated user has a premium subscription.
       description: ''
-      authenticated: false
+      authenticated: true
       custom: []
     headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters:
-      email:
-        name: email
-        description: 'The email address of the user.'
-        required: true
-        example: bruno@example.com
-        type: string
-        custom: []
-      password:
-        name: password
-        description: 'The password of the user.'
-        required: true
-        example: /wxBxq$kgl>8u6A3I
-        type: string
-        custom: []
-    cleanBodyParameters:
-      email: bruno@example.com
-      password: /wxBxq$kgl>8u6A3I
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses:
       -
         status: 200
         content: |-
           {
-           "token": "api_token_here"
-          }
-        headers: []
-        description: ''
-        custom: []
-      -
-        status: 401
-        content: |-
-          {
-           "error": "Invalid credentials"
+            "id": 1,
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "subscription": "Premium"
           }
         headers: []
         description: ''
         custom: []
     responseFields: []
-    auth: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer fgP56c1b46vaDVa3kdhE8Ze'
     controller: null
     method: null
     route: null

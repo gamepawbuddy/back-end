@@ -1,0 +1,166 @@
+name: Password
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/password/reset-email
+    metadata:
+      groupName: Password
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Send a reset password link via email to the user.'
+      description: |-
+        This endpoint allows sending a reset password link to the user's email.
+
+        API docs:
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'The email address of the user.'
+        required: true
+        example: lockman.friedrich@example.net
+        type: string
+        custom: []
+    cleanBodyParameters:
+      email: lockman.friedrich@example.net
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "message": "Password reset email sent successfully."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "User not found with the provided email."
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/password/reset-password
+    metadata:
+      groupName: Password
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Reset the user''s password.'
+      description: |-
+        This function handles the password reset process. It first validates the incoming request data,
+        ensuring the new password meets certain criteria. It then checks if the provided reset token
+        exists in the PasswordReset table. If the token is valid, the function deletes the token record,
+        finds the user by their ID, and updates their password.
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      password:
+        name: password
+        description: 'The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
+        required: true
+        example: /HuPJ>GI2A
+        type: string
+        custom: []
+      password_confirmation:
+        name: password_confirmation
+        description: 'The password confirmation. Must match the password.'
+        required: true
+        example: quia
+        type: string
+        custom: []
+      user_id:
+        name: user_id
+        description: 'The ID of the user whose password is being reset.'
+        required: true
+        example: et
+        type: string
+        custom: []
+      token:
+        name: token
+        description: 'The password reset token.'
+        required: true
+        example: mollitia
+        type: string
+        custom: []
+    cleanBodyParameters:
+      password: /HuPJ>GI2A
+      password_confirmation: quia
+      user_id: et
+      token: mollitia
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "message": "Password reset successful!"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+            "message": "Invalid or expired token."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+            "message": "User not found."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+            "errors": {
+              "password": ["The password format is invalid."]
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

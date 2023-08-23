@@ -70,13 +70,13 @@
                     <a href="#authenticating-requests">Authenticating requests</a>
                 </li>
                             </ul>
-                    <ul id="tocify-header-authenticating-requests" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="authenticating-requests">
-                    <a href="#authenticating-requests">Authenticating requests</a>
+                    <ul id="tocify-header-authentication" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="authentication">
+                    <a href="#authentication">Authentication</a>
                 </li>
-                                    <ul id="tocify-subheader-authenticating-requests" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="authenticating-requests-POSTapi-v1-login-user">
-                                <a href="#authenticating-requests-POSTapi-v1-login-user">Authenticate the user and issue an API token.</a>
+                                    <ul id="tocify-subheader-authentication" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="authentication-POSTapi-v1-login-user">
+                                <a href="#authentication-POSTapi-v1-login-user">Authenticate the user and generate an API token.</a>
                             </li>
                                                                         </ul>
                             </ul>
@@ -112,6 +112,18 @@
                             </li>
                                                                         </ul>
                             </ul>
+                    <ul id="tocify-header-premium" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="premium">
+                    <a href="#premium">Premium</a>
+                </li>
+                                    <ul id="tocify-subheader-premium" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="premium-GETapi-v1-user-ispremium">
+                                <a href="#premium-GETapi-v1-user-ispremium">Check if a user has a premium subscription.
+
+This endpoint checks if the authenticated user has a premium subscription.</a>
+                            </li>
+                                                                        </ul>
+                            </ul>
                     <ul id="tocify-header-user" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="user">
                     <a href="#user">User</a>
@@ -131,7 +143,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: August 14, 2023</li>
+        <li>Last updated: August 20, 2023</li>
     </ul>
 </div>
 
@@ -150,11 +162,11 @@
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.</p>
 
-        <h1 id="authenticating-requests">Authenticating requests</h1>
+        <h1 id="authentication">Authentication</h1>
 
-    <p>This endpoint allows users to authenticate and retrieve an API token. You must provide the user's email and password in the request body.</p>
+    <p>This endpoint allows users to authenticate and obtain an API token. The user's email and password must be provided in the request body.</p>
 
-                                <h2 id="authenticating-requests-POSTapi-v1-login-user">Authenticate the user and issue an API token.</h2>
+                                <h2 id="authentication-POSTapi-v1-login-user">Authenticate the user and generate an API token.</h2>
 
 <p>
 </p>
@@ -172,7 +184,7 @@
     --header "Accept: application/json" \
     --data "{
     \"email\": \"bruno@example.com\",
-    \"password\": \"\\/wxBxq$kgl&gt;8u6A3I\"
+    \"password\": \"y\'r=?Mw?S\"
 }"
 </code></pre></div>
 
@@ -189,7 +201,7 @@ const headers = {
 
 let body = {
     "email": "bruno@example.com",
-    "password": "\/wxBxq$kgl&gt;8u6A3I"
+    "password": "y'r=?Mw?S"
 };
 
 fetch(url, {
@@ -210,7 +222,7 @@ $response = $client-&gt;post(
         ],
         'json' =&gt; [
             'email' =&gt; 'bruno@example.com',
-            'password' =&gt; '/wxBxq$kgl&gt;8u6A3I',
+            'password' =&gt; 'y\'r=?Mw?S',
         ],
     ]
 );
@@ -225,7 +237,7 @@ import json
 url = 'http://gamepawbuddy.local/api/v1/login/user'
 payload = {
     "email": "bruno@example.com",
-    "password": "\/wxBxq$kgl&gt;8u6A3I"
+    "password": "y'r=?Mw?S"
 }
 headers = {
   'Content-Type': 'application/json',
@@ -336,7 +348,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="bruno@example.com"
                data-component="body">
     <br>
-<p>The email address of the user. Example: <code>bruno@example.com</code></p>
+<p>The user's email address. Example: <code>bruno@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -344,10 +356,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-v1-login-user"
-               value="/wxBxq$kgl>8u6A3I"
+               value="y'r=?Mw?S"
                data-component="body">
     <br>
-<p>The password of the user. Example: <code>/wxBxq$kgl&gt;8u6A3I</code></p>
+<p>The user's password. Example: <code>y'r=?Mw?S</code></p>
         </div>
         </form>
 
@@ -1539,14 +1551,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://gamepawbuddy.local/api/v1/password/reset-password-form/ex" \
+    --get "http://gamepawbuddy.local/api/v1/password/reset-password-form/et" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://gamepawbuddy.local/api/v1/password/reset-password-form/ex"
+    "http://gamepawbuddy.local/api/v1/password/reset-password-form/et"
 );
 
 const headers = {
@@ -1563,7 +1575,7 @@ fetch(url, {
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;get(
-    'http://gamepawbuddy.local/api/v1/password/reset-password-form/ex',
+    'http://gamepawbuddy.local/api/v1/password/reset-password-form/et',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -1579,7 +1591,7 @@ print_r(json_decode((string) $body));</code></pre></div>
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://gamepawbuddy.local/api/v1/password/reset-password-form/ex'
+url = 'http://gamepawbuddy.local/api/v1/password/reset-password-form/et'
 headers = {
   'Content-Type': 'application/json',
   'Accept': 'application/json'
@@ -2031,10 +2043,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="token"                data-endpoint="GETapi-v1-password-reset-password-form--token-"
-               value="ex"
+               value="et"
                data-component="url">
     <br>
-<p>Example: <code>ex</code></p>
+<p>Example: <code>et</code></p>
             </div>
                     </form>
 
@@ -2060,7 +2072,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"ezekiel73@example.com\"
+    \"email\": \"lockman.friedrich@example.net\"
 }"
 </code></pre></div>
 
@@ -2076,7 +2088,7 @@ const headers = {
 };
 
 let body = {
-    "email": "ezekiel73@example.com"
+    "email": "lockman.friedrich@example.net"
 };
 
 fetch(url, {
@@ -2096,7 +2108,7 @@ $response = $client-&gt;post(
             'Accept' =&gt; 'application/json',
         ],
         'json' =&gt; [
-            'email' =&gt; 'ezekiel73@example.com',
+            'email' =&gt; 'lockman.friedrich@example.net',
         ],
     ]
 );
@@ -2110,7 +2122,7 @@ import json
 
 url = 'http://gamepawbuddy.local/api/v1/password/reset-email'
 payload = {
-    "email": "ezekiel73@example.com"
+    "email": "lockman.friedrich@example.net"
 }
 headers = {
   'Content-Type': 'application/json',
@@ -2218,10 +2230,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-v1-password-reset-email"
-               value="ezekiel73@example.com"
+               value="lockman.friedrich@example.net"
                data-component="body">
     <br>
-<p>The email address of the user. Example: <code>ezekiel73@example.com</code></p>
+<p>The email address of the user. Example: <code>lockman.friedrich@example.net</code></p>
         </div>
         </form>
 
@@ -2245,10 +2257,10 @@ finds the user by their ID, and updates their password.</p>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"password\": \"fFe`GMku\",
-    \"password_confirmation\": \"totam\",
-    \"user_id\": \"quis\",
-    \"token\": \"ex\"
+    \"password\": \"\\/HuPJ&gt;GI2A\",
+    \"password_confirmation\": \"quia\",
+    \"user_id\": \"et\",
+    \"token\": \"mollitia\"
 }"
 </code></pre></div>
 
@@ -2264,10 +2276,10 @@ const headers = {
 };
 
 let body = {
-    "password": "fFe`GMku",
-    "password_confirmation": "totam",
-    "user_id": "quis",
-    "token": "ex"
+    "password": "\/HuPJ&gt;GI2A",
+    "password_confirmation": "quia",
+    "user_id": "et",
+    "token": "mollitia"
 };
 
 fetch(url, {
@@ -2287,10 +2299,10 @@ $response = $client-&gt;post(
             'Accept' =&gt; 'application/json',
         ],
         'json' =&gt; [
-            'password' =&gt; 'fFe`GMku',
-            'password_confirmation' =&gt; 'totam',
-            'user_id' =&gt; 'quis',
-            'token' =&gt; 'ex',
+            'password' =&gt; '/HuPJ&gt;GI2A',
+            'password_confirmation' =&gt; 'quia',
+            'user_id' =&gt; 'et',
+            'token' =&gt; 'mollitia',
         ],
     ]
 );
@@ -2304,10 +2316,10 @@ import json
 
 url = 'http://gamepawbuddy.local/api/v1/password/reset-password'
 payload = {
-    "password": "fFe`GMku",
-    "password_confirmation": "totam",
-    "user_id": "quis",
-    "token": "ex"
+    "password": "\/HuPJ&gt;GI2A",
+    "password_confirmation": "quia",
+    "user_id": "et",
+    "token": "mollitia"
 }
 headers = {
   'Content-Type': 'application/json',
@@ -2437,10 +2449,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-v1-password-reset-password"
-               value="fFe`GMku"
+               value="/HuPJ>GI2A"
                data-component="body">
     <br>
-<p>The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character. Example: <code>fFe</code>GMku`</p>
+<p>The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character. Example: <code>/HuPJ&gt;GI2A</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password_confirmation</code></b>&nbsp;&nbsp;
@@ -2448,10 +2460,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password_confirmation"                data-endpoint="POSTapi-v1-password-reset-password"
-               value="totam"
+               value="quia"
                data-component="body">
     <br>
-<p>The password confirmation. Must match the password. Example: <code>totam</code></p>
+<p>The password confirmation. Must match the password. Example: <code>quia</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>user_id</code></b>&nbsp;&nbsp;
@@ -2459,10 +2471,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="user_id"                data-endpoint="POSTapi-v1-password-reset-password"
-               value="quis"
+               value="et"
                data-component="body">
     <br>
-<p>The ID of the user whose password is being reset. Example: <code>quis</code></p>
+<p>The ID of the user whose password is being reset. Example: <code>et</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>token</code></b>&nbsp;&nbsp;
@@ -2470,12 +2482,183 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="token"                data-endpoint="POSTapi-v1-password-reset-password"
-               value="ex"
+               value="mollitia"
                data-component="body">
     <br>
-<p>The password reset token. Example: <code>ex</code></p>
+<p>The password reset token. Example: <code>mollitia</code></p>
         </div>
         </form>
+
+                <h1 id="premium">Premium</h1>
+
+    
+
+                                <h2 id="premium-GETapi-v1-user-ispremium">Check if a user has a premium subscription.
+
+This endpoint checks if the authenticated user has a premium subscription.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-user-ispremium">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://gamepawbuddy.local/api/v1/user/ispremium" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://gamepawbuddy.local/api/v1/user/ispremium"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get(
+    'http://gamepawbuddy.local/api/v1/user/ispremium',
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer {YOUR_AUTH_KEY}',
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://gamepawbuddy.local/api/v1/user/ispremium'
+headers = {
+  'Authorization': 'Bearer {YOUR_AUTH_KEY}',
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+response = requests.request('GET', url, headers=headers)
+response.json()</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-user-ispremium">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;id&quot;: 1,
+    &quot;name&quot;: &quot;John Doe&quot;,
+    &quot;email&quot;: &quot;john.doe@example.com&quot;,
+    &quot;subscription&quot;: &quot;Premium&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-user-ispremium" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-v1-user-ispremium"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-user-ispremium"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-v1-user-ispremium" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-v1-user-ispremium">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-v1-user-ispremium" data-method="GET"
+      data-path="api/v1/user/ispremium"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-user-ispremium', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-v1-user-ispremium"
+                    onclick="tryItOut('GETapi-v1-user-ispremium');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-v1-user-ispremium"
+                    onclick="cancelTryOut('GETapi-v1-user-ispremium');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-v1-user-ispremium"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/user/ispremium</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-v1-user-ispremium"
+               value="Bearer {YOUR_AUTH_KEY}"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer {YOUR_AUTH_KEY}</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-v1-user-ispremium"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-v1-user-ispremium"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
 
                 <h1 id="user">User</h1>
 
@@ -2501,7 +2684,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"email\": \"john@example.com\",
-    \"password\": \"3{\\/}UJ\"
+    \"password\": \"0ToxA)P$\"
 }"
 </code></pre></div>
 
@@ -2519,7 +2702,7 @@ const headers = {
 
 let body = {
     "email": "john@example.com",
-    "password": "3{\/}UJ"
+    "password": "0ToxA)P$"
 };
 
 fetch(url, {
@@ -2541,7 +2724,7 @@ $response = $client-&gt;post(
         ],
         'json' =&gt; [
             'email' =&gt; 'john@example.com',
-            'password' =&gt; '3{/}UJ',
+            'password' =&gt; '0ToxA)P$',
         ],
     ]
 );
@@ -2556,7 +2739,7 @@ import json
 url = 'http://gamepawbuddy.local/api/v1/user/create'
 payload = {
     "email": "john@example.com",
-    "password": "3{\/}UJ"
+    "password": "0ToxA)P$"
 }
 headers = {
   'Authorization': 'Bearer {YOUR_AUTH_KEY}',
@@ -2704,10 +2887,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-v1-user-create"
-               value="3{/}UJ"
+               value="0ToxA)P$"
                data-component="body">
     <br>
-<p>The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character. Example: <code>3{/}UJ</code></p>
+<p>The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character. Example: <code>0ToxA)P$</code></p>
         </div>
         </form>
 

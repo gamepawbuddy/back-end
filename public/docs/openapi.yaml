@@ -9,8 +9,8 @@ servers:
 paths:
   /api/v1/login/user:
     post:
-      summary: 'Authenticate the user and issue an API token.'
-      operationId: authenticateTheUserAndIssueAnAPIToken
+      summary: 'Authenticate the user and generate an API token.'
+      operationId: authenticateTheUserAndGenerateAnAPIToken
       description: ''
       parameters: []
       responses:
@@ -39,7 +39,7 @@ paths:
                     type: string
                     example: 'Invalid credentials'
       tags:
-        - 'Authenticating requests'
+        - Authentication
       requestBody:
         required: true
         content:
@@ -49,12 +49,12 @@ paths:
               properties:
                 email:
                   type: string
-                  description: 'The email address of the user.'
+                  description: 'The user''s email address.'
                   example: bruno@example.com
                 password:
                   type: string
-                  description: 'The password of the user.'
-                  example: /wxBxq$kgl>8u6A3I
+                  description: 'The user''s password.'
+                  example: 'y''r=?Mw?S'
               required:
                 - email
                 - password
@@ -2036,7 +2036,7 @@ paths:
         in: path
         name: token
         description: ''
-        example: ex
+        example: et
         required: true
         schema:
           type: string
@@ -2083,7 +2083,7 @@ paths:
                 email:
                   type: string
                   description: 'The email address of the user.'
-                  example: ezekiel73@example.com
+                  example: lockman.friedrich@example.net
               required:
                 - email
       security: []
@@ -2162,25 +2162,65 @@ paths:
                 password:
                   type: string
                   description: 'The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
-                  example: fFe`GMku
+                  example: /HuPJ>GI2A
                 password_confirmation:
                   type: string
                   description: 'The password confirmation. Must match the password.'
-                  example: totam
+                  example: quia
                 user_id:
                   type: string
                   description: 'The ID of the user whose password is being reset.'
-                  example: quis
+                  example: et
                 token:
                   type: string
                   description: 'The password reset token.'
-                  example: ex
+                  example: mollitia
               required:
                 - password
                 - password_confirmation
                 - user_id
                 - token
       security: []
+  /api/v1/user/ispremium:
+    get:
+      summary: "Check if a user has a premium subscription.\n\nThis endpoint checks if the authenticated user has a premium subscription."
+      operationId: checkIfAUserHasAPremiumSubscriptionThisEndpointChecksIfTheAuthenticatedUserHasAPremiumSubscription
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'John Doe'
+                  email: john.doe@example.com
+                  subscription: Premium
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'John Doe'
+                  email:
+                    type: string
+                    example: john.doe@example.com
+                  subscription:
+                    type: string
+                    example: Premium
+      tags:
+        - Premium
   /api/v1/user/create:
     post:
       summary: 'Handle the user creation request.'
@@ -2267,19 +2307,22 @@ paths:
                 password:
                   type: string
                   description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
-                  example: '3{/}UJ'
+                  example: 0ToxA)P$
               required:
                 - email
                 - password
 tags:
   -
-    name: 'Authenticating requests'
-    description: 'This endpoint allows users to authenticate and retrieve an API token. You must provide the user''s email and password in the request body.'
+    name: Authentication
+    description: 'This endpoint allows users to authenticate and obtain an API token. The user''s email and password must be provided in the request body.'
   -
     name: Endpoints
     description: ''
   -
     name: Password
+    description: ''
+  -
+    name: Premium
     description: ''
   -
     name: User

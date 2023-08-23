@@ -10,17 +10,17 @@
     ],
     "info": {
         "name": "gamepawbuddy",
-        "_postman_id": "3db0a9a7-04ca-4e2b-b2ca-c2932e0581f6",
+        "_postman_id": "dca5db97-c3ea-4301-90ec-34af61b48cf1",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
         {
-            "name": "Authenticating requests",
-            "description": "This endpoint allows users to authenticate and retrieve an API token. You must provide the user's email and password in the request body.",
+            "name": "Authentication",
+            "description": "This endpoint allows users to authenticate and obtain an API token. The user's email and password must be provided in the request body.",
             "item": [
                 {
-                    "name": "Authenticate the user and issue an API token.",
+                    "name": "Authenticate the user and generate an API token.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"\\\/wxBxq$kgl>8u6A3I\"}"
+                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"y'r=?Mw?S\"}"
                         },
                         "description": "",
                         "auth": {
@@ -207,7 +207,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "ex",
+                                    "value": "et",
                                     "description": ""
                                 }
                             ]
@@ -275,7 +275,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"ezekiel73@example.com\"}"
+                            "raw": "{\"email\":\"lockman.friedrich@example.net\"}"
                         },
                         "description": "This endpoint allows sending a reset password link to the user's email.\n\nAPI docs:",
                         "auth": {
@@ -319,7 +319,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"password\":\"fFe`GMku\",\"password_confirmation\":\"totam\",\"user_id\":\"quis\",\"token\":\"ex\"}"
+                            "raw": "{\"password\":\"\\\/HuPJ>GI2A\",\"password_confirmation\":\"quia\",\"user_id\":\"et\",\"token\":\"mollitia\"}"
                         },
                         "description": "This function handles the password reset process. It first validates the incoming request data,\nensuring the new password meets certain criteria. It then checks if the provided reset token\nexists in the PasswordReset table. If the token is valid, the function deletes the token record,\nfinds the user by their ID, and updates their password.",
                         "auth": {
@@ -356,6 +356,44 @@
             ]
         },
         {
+            "name": "Premium",
+            "description": "",
+            "item": [
+                {
+                    "name": "Check if a user has a premium subscription.\n\nThis endpoint checks if the authenticated user has a premium subscription.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/user\/ispremium",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/ispremium"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n  \"id\": 1,\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"subscription\": \"Premium\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "User",
             "description": "",
             "item": [
@@ -381,7 +419,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"john@example.com\",\"password\":\"3{\\\/}UJ\"}"
+                            "raw": "{\"email\":\"john@example.com\",\"password\":\"0ToxA)P$\"}"
                         },
                         "description": ""
                     },

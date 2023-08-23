@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('username')->unique()->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('subscription_id')->default(1); // Set default value to 1, which basic level of subscription. 
             $table->string('avatar')->nullable();
             $table->text('bio')->nullable();
             $table->string('city')->nullable();
@@ -47,6 +48,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('deleted_at')->nullable();  
             $table->index('email');
             $table->index('username');
+
+            $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('cascade');
+ 
         });
     }
 

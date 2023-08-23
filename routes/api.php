@@ -23,6 +23,34 @@ Route::prefix('v1')->group(function () {
     Route::prefix('user')->group(function () {
         // Route for creating users
         Route::post('create', [UsersController::class, 'create']);
+        
+        /**
+         * @group Premium
+         *
+         * Check if a user has a premium subscription.
+         *
+         * This endpoint checks if the authenticated user has a premium subscription.
+         * 
+         * @authenticated
+         * 
+         * @headerParam Authorization string required The JWT token of the authenticated user. Example: "Bearer your_jwt_token_here"
+         *
+         * @response {
+         *   "id": 1,
+         *   "name": "John Doe",
+         *   "email": "john.doe@example.com",
+         *   "subscription": "Premium"
+         * }
+         */
+    Route::middleware(['premium-access'])->get('ispremium', function () {
+            // Return the fake premium user details
+            return response()->json([
+                'id' => 1,
+                'name' => 'John Doe',
+                'email' => 'john.doe@example.com',
+                'subscription' => 'Premium'
+            ]);
+        });
     });
     
     // Grouping login-related routes under the 'login' prefix
@@ -45,5 +73,6 @@ Route::prefix('v1')->group(function () {
         // Route for actually resetting the password
         Route::post('reset-password', [PasswordResetController::class, 'resetPassword']);
     });
+;
     
 });

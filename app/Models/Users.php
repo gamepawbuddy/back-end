@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\UserActivity;
+use App\Models\Subscription;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str; // Import the Str facade for UUID generation
@@ -65,4 +66,32 @@ class Users extends Authenticatable
     {
         return $this->morphMany(UserActivity::class, 'performed_by');
     }
+
+    /**
+     * A user can have one subscription.
+     */
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class);
+    }
+
+    /**
+     * Determines if the user has a premium subscription.
+     *
+     * This method checks if the user's subscription ID matches the value for a premium subscription.
+     * In this implementation, a subscription_id of 2 is considered as premium.
+     *
+     * @return bool Returns true if the user has a premium subscription, otherwise returns false.
+     */
+    public function isPremium()
+    {
+        // If the user's subscription_id is 2, they are considered premium
+        if ($this->subscription_id === 2) {
+            return true;
+        }
+
+        // Otherwise, they are not premium
+        return false;
+    }
+
 }

@@ -42,7 +42,7 @@ Route::prefix('v1')->group(function () {
          *   "subscription": "Premium"
          * }
          */
-    Route::middleware(['premium-access'])->get('ispremium', function () {
+         Route::middleware(['user-token-auth','premium-access'])->get('ispremium', function () {
             // Return the fake premium user details
             return response()->json([
                 'id' => 1,
@@ -51,7 +51,35 @@ Route::prefix('v1')->group(function () {
                 'subscription' => 'Premium'
             ]);
         });
+
+         /**
+         * @group Premium
+         *
+         * Update the subscription.
+         *
+         * This endpoint updates the subscription.
+         * 
+         * @authenticated
+         *   
+         * @response {
+         *   "id": 1,
+         *   "name": "John Doe",
+         *   "email": "john.doe@example.com",
+         *   "subscription": "Premium"
+         * }
+         */
+        Route::put('user', [SubscriptionController::class, 'updateSubscription'])->middleware('user-token-auth');
     });
+
+
+    Route::middleware(['user-token-auth'])->group(function () {
+        Route::get('protected-endpoint1', 'YourController@method1');
+        Route::get('protected-endpoint2', 'AnotherController@method2');
+        // ... other protected routes ...
+    });
+
+    
+    
     
     // Grouping login-related routes under the 'login' prefix
     Route::prefix('login')->group(function () {

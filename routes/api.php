@@ -70,15 +70,6 @@ Route::prefix('v1')->group(function () {
          */
         Route::put('user', [SubscriptionController::class, 'updateSubscription'])->middleware('user-token-auth');
     });
-
-
-    Route::middleware(['user-token-auth'])->group(function () {
-        Route::get('protected-endpoint1', 'YourController@method1');
-        Route::get('protected-endpoint2', 'AnotherController@method2');
-        // ... other protected routes ...
-    });
-
-    
     
     
     // Grouping login-related routes under the 'login' prefix

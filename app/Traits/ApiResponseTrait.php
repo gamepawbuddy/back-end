@@ -65,4 +65,32 @@ trait ApiResponseTrait
         // the provided message, and the HTTP_INTERNAL_SERVER_ERROR status code.
         return $this->respond(false, $message, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
+
+    /**
+     * Respond with a success (200) status.
+     *
+     * @param string $message  Message associated with the success response.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondSuccess($message)
+    {
+        // Use the 'respond' method to generate a response with 'true' success,
+        // the provided message, and the HTTP_OK status code.
+        return $this->respond(true, $message, Response::HTTP_OK);
+    }
+
+    /**
+     * Respond with a bad request (400) status.
+     *
+     * @param string $message  Message associated with the bad request response.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondBadRequest($message)
+    {
+        // Use the 'respond' method to generate a response with 'false' success,
+        // the provided message, and the HTTP_BAD_REQUEST status code.
+        return $this->respond(false, $message, Response::HTTP_BAD_REQUEST);
+    }
 }

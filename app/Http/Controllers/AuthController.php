@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Laravel\Passport\Token;
 use Lcobucci\JWT\Configuration;
+use App\Traits\ApiResponseTrait;
 
 class AuthController extends Controller
 {
 
+    use ApiResponseTrait;
+    
     /**
      * Authenticate the user and generate an API token.
      *
@@ -48,7 +51,7 @@ class AuthController extends Controller
 
           // Check if the user has exceeded the number of allowed failed attempts.
         if ($this->hasExceededFailedAttempts($credentials['email'])) {
-            return response()->json(['error' => 'Too many failed attempts. Please try again later.'], 429);
+            return $this->respondTooManyRequests('Too many failed attempts. Please try again later');
         }
     
         $userActivityController = new UserActivityController();
@@ -72,7 +75,7 @@ class AuthController extends Controller
             $userActivityController->logActivity($user, 'login_success', [], $request->ip());
 
             // Return the generated token as a response.
-            return response()->json(['token' => $token]);
+            return $this->respondWithToken($token);
         }
 
         // Log failed login attempt activity and include IP address.
@@ -82,7 +85,7 @@ class AuthController extends Controller
         $this->logFailedAttempt($credentials, $request);
     
         // Return an error response indicating invalid credentials.
-        return response()->json(['error' => 'Invalid credentials'], 401);
+        return $this->respondUnauthorized('Invalid credentials');
     }
     
     /**
@@ -211,15 +214,15 @@ class AuthController extends Controller
                 $userActivityController = new UserActivityController();
                 $userActivityController->logActivity($user, 'logout_success', [], $request->ip());
                 // Respond with a success message
-                return response()->json(['message' => 'Logged out successfully']);
+                return $this->respondSuccess('Logged out successfully');
             } else {
                 // Respond with an error if the token is not found in the database
-                return response()->json(['error' => 'Token not found'], 404);
+                return $this->respondNotFound('Token not found');
             }
             
         } catch (\Exception $e) {
             // Handle any exceptions that occur during token parsing and respond with an error
-            return response()->json(['error' => 'Invalid token'], 400);
+            return $this->respondBadRequest('Invalid token');
         }
     }
     
@@ -233,7 +236,7 @@ class AuthController extends Controller
     {
         $tokens = Auth::user()->tokens;
 
-        return response()->json(['tokens' => $tokens]);
+        return $this->respondWithToken($token);
     }
 
     /**
@@ -245,8 +248,7 @@ class AuthController extends Controller
     public function revokeToken($tokenId)
     {
         Auth::user()->tokens()->where('id', $tokenId)->delete();
-
-        return response()->json(['message' => 'Token revoked successfully']);
+        return $this->respondSuccess('Token revoked successfully');
     }
 
 }

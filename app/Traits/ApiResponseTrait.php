@@ -17,7 +17,6 @@ trait ApiResponseTrait
      */
     private function respond($success, $message, $statusCode)
     {
-        // Create a JSON response with success status, message, and status code.
         return response()->json([
             'success' => $success,
             'message' => $message,
@@ -33,8 +32,6 @@ trait ApiResponseTrait
      */
     public function respondUnauthorized($message)
     {
-        // Use the 'respond' method to generate a response with 'false' success,
-        // the provided message, and the HTTP_UNAUTHORIZED status code.
         return $this->respond(false, $message, Response::HTTP_UNAUTHORIZED);
     }
 
@@ -47,8 +44,6 @@ trait ApiResponseTrait
      */
     public function respondForbidden($message)
     {
-        // Use the 'respond' method to generate a response with 'false' success,
-        // the provided message, and the HTTP_FORBIDDEN status code.
         return $this->respond(false, $message, Response::HTTP_FORBIDDEN);
     }
 
@@ -61,8 +56,6 @@ trait ApiResponseTrait
      */
     public function respondServerError($message)
     {
-        // Use the 'respond' method to generate a response with 'false' success,
-        // the provided message, and the HTTP_INTERNAL_SERVER_ERROR status code.
         return $this->respond(false, $message, Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
@@ -75,8 +68,6 @@ trait ApiResponseTrait
      */
     public function respondSuccess($message)
     {
-        // Use the 'respond' method to generate a response with 'true' success,
-        // the provided message, and the HTTP_OK status code.
         return $this->respond(true, $message, Response::HTTP_OK);
     }
 
@@ -89,8 +80,67 @@ trait ApiResponseTrait
      */
     public function respondBadRequest($message)
     {
-        // Use the 'respond' method to generate a response with 'false' success,
-        // the provided message, and the HTTP_BAD_REQUEST status code.
         return $this->respond(false, $message, Response::HTTP_BAD_REQUEST);
     }
+
+    /**
+     * Respond with a success message and HTTP status code 201 (Created).
+     *
+     * @param string $message  Message associated with the response.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function respondCreated($message)
+    {
+        return $this->respond(true, $message, Response::HTTP_CREATED);
+    }
+
+    /**
+     * Respond with a not found (404) status.
+     *
+     * @param string $message  Message associated with the not found response.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondNotFound($message)
+    {
+        return $this->respond(false, $message, Response::HTTP_NOT_FOUND);
+    }
+
+    /**
+     * Respond with a too many requests (429) status.
+     *
+     * @param string $message  Message associated with the too many requests response.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondTooManyRequests($message)
+    {
+        return $this->respond(false, $message, Response::HTTP_TOO_MANY_REQUESTS);
+    }
+
+    /**
+     * Respond with a JSON containing a token.
+     *
+     * @param string $token  The token to include in the response.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondWithToken($token)
+    {
+        return response()->json(['token' => $token]);
+    }
+
+    /**
+     * Respond with a JSON containing validation errors.
+     *
+     * @param array $errors  The validation errors to include in the response.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondWithValidationErrors($errors)
+    {
+        return response()->json(['errors' => $errors], Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
 }

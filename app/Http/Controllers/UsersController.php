@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordMail;
 use Illuminate\Http\JsonResponse;
 use App\Mail\NewUserWelcomeMail;
+use App\Traits\ApiResponseTrait;
 
 /**
  * UsersController handles the creation and management of users.
@@ -18,6 +19,8 @@ use App\Mail\NewUserWelcomeMail;
 
 class UsersController extends Controller
 {
+
+    use ApiResponseTrait;
     
   /**
      * Handle the user creation request.
@@ -66,14 +69,14 @@ class UsersController extends Controller
             // Attempt to create the user.
             if ($this->createUser($userData)) {
                 Mail::to($userData['email'])->send(new NewUserWelcomeMail());
-                return response()->json(['message' => 'User created successfully'], 201);
+                return $this->respondCreated('User created successfully');
             }
 
             // If user creation fails, return a generic error message.
-            return response()->json(['message' => 'User creation failed'], 500);
+            return $this->respondServerError('User creation failed');
         } catch (ValidationException $e) {
             // If validation fails, return detailed error messages.
-            return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 422);
+            return $this->respondWithValidationErrors($e->errors());
         }
     }
 

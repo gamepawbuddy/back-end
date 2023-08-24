@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Crypt;
+use App\Traits\ApiResponseTrait;
 
 class PasswordResetController extends Controller
 {
+
+    use ApiResponseTrait;
     /**
      * Send a reset password link via email to the user.
      *
@@ -42,14 +45,14 @@ class PasswordResetController extends Controller
         $user = Users::where('email', $request->email)->first();
 
         if (!$user) {
-            return response()->json(['message' => trans('passwords.user')], 400);
+            return $this->respondBadRequest(trans('passwords.user'));
         }
 
         $token = $this->createPasswordResetToken($request->email);
         
         Mail::to($request->email)->send(new ResetPasswordMail($token));
 
-        return response()->json(['message' => trans('passwords.sent')]);
+        return $this->respondSuccess( trans('passwords.sent'));
     }
 
     private function createPasswordResetToken(string $email): string
@@ -88,7 +91,7 @@ class PasswordResetController extends Controller
         $user = Users::where('email', $passwordReset->email)->first();
     
         if (!$user) {
-            return response()->json(['message' => 'User not found for the given token'], 404);
+            $this->respondNotFound('User not found for the given token');
         }
     
         // Redirect to the reset form with the user's ID and token attached as parameters.
@@ -156,7 +159,7 @@ class PasswordResetController extends Controller
 
             // If the token doesn't exist, return an error response
             if (!$passwordReset) {
-                return response()->json(['message' => 'Invalid or expired token.'], 400);
+              return $this->respondBadRequest('Invalid or expired token');
             }
 
            // Delete the matching record from the PasswordReset table based on the token
@@ -167,7 +170,7 @@ class PasswordResetController extends Controller
 
             // If the user doesn't exist, return an error response
             if (!$user) {
-                return response()->json(['message' => 'User not found.'], 404);
+                return $this->respondNotFound('User not found');
             }
 
             // Update the user's password and save the changes
@@ -175,11 +178,11 @@ class PasswordResetController extends Controller
             $user->save();
 
             // Return a success response
-            return response()->json(['message' => 'Password reset successful'], 200);
+            return $this->respondSuccess('Password reset successful');
 
         } catch (ValidationException $e) {
             // If validation fails, return the validation errors
-            return response()->json(['errors' => $e->errors()], 422);
+            return $this->respondWithValidationErrors($e->errors());
         }
     }
     

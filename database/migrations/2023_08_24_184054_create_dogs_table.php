@@ -19,6 +19,7 @@ class CreateDogsTable extends Migration
         $table->string('name');
         $table->date('birth_date')->nullable();
         $table->string('color')->nullable();
+        $table->string('picture_url')->nullable();
         
         // Owner Information
         $table->uuid('user_id')->nullable(); 

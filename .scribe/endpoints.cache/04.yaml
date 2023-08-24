@@ -31,11 +31,11 @@ endpoints:
         name: email
         description: 'The email address of the user.'
         required: true
-        example: lockman.friedrich@example.net
+        example: qhagenes@example.net
         type: string
         custom: []
     cleanBodyParameters:
-      email: lockman.friedrich@example.net
+      email: qhagenes@example.net
     fileParameters: []
     responses:
       -
@@ -91,35 +91,35 @@ endpoints:
         name: password
         description: 'The new password. Must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
         required: true
-        example: /HuPJ>GI2A
+        example: '''L[Z^8''p,M!)''j'
         type: string
         custom: []
       password_confirmation:
         name: password_confirmation
         description: 'The password confirmation. Must match the password.'
         required: true
-        example: quia
+        example: eligendi
         type: string
         custom: []
       user_id:
         name: user_id
         description: 'The ID of the user whose password is being reset.'
         required: true
-        example: et
+        example: dolor
         type: string
         custom: []
       token:
         name: token
         description: 'The password reset token.'
         required: true
-        example: mollitia
+        example: reprehenderit
         type: string
         custom: []
     cleanBodyParameters:
-      password: /HuPJ>GI2A
-      password_confirmation: quia
-      user_id: et
-      token: mollitia
+      password: '''L[Z^8''p,M!)''j'
+      password_confirmation: eligendi
+      user_id: dolor
+      token: reprehenderit
     fileParameters: []
     responses:
       -

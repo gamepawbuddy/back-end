@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "gamepawbuddy",
-        "_postman_id": "dca5db97-c3ea-4301-90ec-34af61b48cf1",
+        "_postman_id": "dc261e79-76eb-4d3d-8140-3e6081043738",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -41,7 +41,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"y'r=?Mw?S\"}"
+                            "raw": "{\"email\":\"bruno@example.com\",\"password\":\"x^<2WLfN|3uVVS7H4*c\"}"
                         },
                         "description": "",
                         "auth": {
@@ -207,7 +207,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "et",
+                                    "value": "nulla",
                                     "description": ""
                                 }
                             ]
@@ -275,7 +275,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"lockman.friedrich@example.net\"}"
+                            "raw": "{\"email\":\"qhagenes@example.net\"}"
                         },
                         "description": "This endpoint allows sending a reset password link to the user's email.\n\nAPI docs:",
                         "auth": {
@@ -319,7 +319,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"password\":\"\\\/HuPJ>GI2A\",\"password_confirmation\":\"quia\",\"user_id\":\"et\",\"token\":\"mollitia\"}"
+                            "raw": "{\"password\":\"'L[Z^8'p,M!)'j\",\"password_confirmation\":\"eligendi\",\"user_id\":\"dolor\",\"token\":\"reprehenderit\"}"
                         },
                         "description": "This function handles the password reset process. It first validates the incoming request data,\nensuring the new password meets certain criteria. It then checks if the provided reset token\nexists in the PasswordReset table. If the token is valid, the function deletes the token record,\nfinds the user by their ID, and updates their password.",
                         "auth": {
@@ -419,7 +419,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"john@example.com\",\"password\":\"0ToxA)P$\"}"
+                            "raw": "{\"email\":\"john@example.com\",\"password\":\"LK;or_Qu~Zz\"}"
                         },
                         "description": ""
                     },
@@ -440,6 +440,65 @@
                             "header": [],
                             "code": 500,
                             "body": "{\n \"message\": \"User creation failed\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update the user's subscription level.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/v1\/user\/update-subscription",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/v1\/user\/update-subscription"
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"subscription\":\"basic\"}"
+                        },
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"message\": \"Subscription updated successfully\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 400,
+                            "body": "{\n    \"message\": \"Bad request\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"message\": \"User not found\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"message\": \"Validation failed\",\n    \"errors\": {\n        \"subscription\": [\"The selected subscription is invalid\"]\n    }\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\n    \"message\": \"Failed to update subscription\"\n}",
                             "name": ""
                         }
                     ]

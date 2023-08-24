@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\SubscriptionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -52,23 +53,8 @@ Route::prefix('v1')->group(function () {
             ]);
         });
 
-         /**
-         * @group Premium
-         *
-         * Update the subscription.
-         *
-         * This endpoint updates the subscription.
-         * 
-         * @authenticated
-         *   
-         * @response {
-         *   "id": 1,
-         *   "name": "John Doe",
-         *   "email": "john.doe@example.com",
-         *   "subscription": "Premium"
-         * }
-         */
-        Route::put('user', [SubscriptionController::class, 'updateSubscription'])->middleware('user-token-auth');
+
+        Route::put('update-subscription', [SubscriptionController::class, 'updateSubscription'])->middleware('user-token-auth');
     });
     
     
@@ -92,6 +78,5 @@ Route::prefix('v1')->group(function () {
         // Route for actually resetting the password
         Route::post('reset-password', [PasswordResetController::class, 'resetPassword']);
     });
-;
     
 });

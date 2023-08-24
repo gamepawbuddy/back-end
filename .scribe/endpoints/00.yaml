@@ -826,7 +826,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6c5vbgZVPadDf14e86Ehk3a'
+      - 'Bearer vD1ec6d5ZPa34fahk6Ebg8V'
     controller: null
     method: null
     route: null
@@ -852,11 +852,11 @@ endpoints:
         name: token
         description: ''
         required: true
-        example: et
+        example: nulla
         type: string
         custom: []
     cleanUrlParameters:
-      token: et
+      token: nulla
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

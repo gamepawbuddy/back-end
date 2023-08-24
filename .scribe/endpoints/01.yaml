@@ -34,12 +34,12 @@ endpoints:
         name: password
         description: 'The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.'
         required: true
-        example: 0ToxA)P$
+        example: LK;or_Qu~Zz
         type: string
         custom: []
     cleanBodyParameters:
       email: john@example.com
-      password: 0ToxA)P$
+      password: LK;or_Qu~Zz
     fileParameters: []
     responses:
       -
@@ -77,7 +77,97 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer kfaVdb514Pve6gD6cEha83Z'
+      - 'Bearer vfVab1eD6kgd5ZE48Pa6c3h'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: api/v1/user/update-subscription
+    metadata:
+      groupName: User
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the user''s subscription level.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      subscription:
+        name: subscription
+        description: 'The desired subscription level. Possible values: basic, premium.'
+        required: true
+        example: basic
+        type: string
+        custom: []
+    cleanBodyParameters:
+      subscription: basic
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+              "message": "Subscription updated successfully"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 400
+        content: |-
+          {
+              "message": "Bad request"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 404
+        content: |-
+          {
+              "message": "User not found"
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 422
+        content: |-
+          {
+              "message": "Validation failed",
+              "errors": {
+                  "subscription": ["The selected subscription is invalid"]
+              }
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 500
+        content: |-
+          {
+              "message": "Failed to update subscription"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Ea3hf6cZvg5PVD86ed1kba4'
     controller: null
     method: null
     route: null

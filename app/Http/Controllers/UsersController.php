@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Users;
+use App\Http\Controllers\DogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -21,6 +22,11 @@ class UsersController extends Controller
 {
 
     use ApiResponseTrait;
+
+    /**
+     * Store the ID of the last created user.
+     */
+    private $lastUserId;
     
   /**
      * Handle the user creation request.
@@ -38,7 +44,7 @@ class UsersController extends Controller
      *
      * @bodyParam email string required The email address of the user. Example: john@example.com
      * @bodyParam password string required The password for the user. The password must meet the following criteria: a minimum length of 8 characters, at least one uppercase letter, at least one lowercase letter, at least one number, and at least one special character.
-     *
+     * @bodyParam dogNameArray array us required for the user's dog name. At least, one pet name needs to be provided in the array.  
      * @response 201 {
      *  "message": "User created successfully"
      * }
@@ -56,30 +62,31 @@ class UsersController extends Controller
     public function create(Request $request)
     {
         try {
-            // Get the validation rules and validate the request data.
-            $validationRules = $this->getValidationRules();
-            $request->validate($validationRules);
-
+            $request->validate($this->getValidationRules());
+    
             // Prepare user data for creation.
             $userData = [
                 'email' => $request->input('email'),
                 'password' => $request->input('password')
             ];
 
-            // Attempt to create the user.
-            if ($this->createUser($userData)) {
+            $dogNameArray = $request->input('petNameArray');
+    
+            
+            if($this->createUser($userData) && DogController::registerUserDog($this->$lastUserId, $dogNameArray ) ) {
                 Mail::to($userData['email'])->send(new NewUserWelcomeMail());
                 return $this->respondCreated('User created successfully');
             }
-
-            // If user creation fails, return a generic error message.
+    
             return $this->respondServerError('User creation failed');
+    
         } catch (ValidationException $e) {
-            // If validation fails, return detailed error messages.
             return $this->respondWithValidationErrors($e->errors());
+        } catch (Exception $e) {  // For any unexpected errors
+            return $this->respondServerError('An unexpected error occurred');
         }
     }
-
+    
     /**
      * Define the validation rules for creating a user.
      * 
@@ -104,6 +111,7 @@ class UsersController extends Controller
                 'regex:/[0-9]/',      // Requires at least one number
                 'regex:/[\W]+/',      // Requires at least one special character
             ],
+            'petNameArray' => 'required|array|min:1',
         ];
     }
 
@@ -122,11 +130,14 @@ class UsersController extends Controller
             $user->password = Hash::make($userData['password']);
             $user->save();
 
+            // Store the user ID in the class property
+            $this->lastUserId = $user->id;
+            
             return true;
         } catch (\Exception $e) {
+            Log::error('Error creating user: ' . $e->getMessage());
             return false;
         }
     }
-
 
 }

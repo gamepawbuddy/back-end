@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class BreedsTableSeeder extends Seeder
 {
@@ -594,26 +595,13 @@ class BreedsTableSeeder extends Seeder
                     'size' => 'Small',
                     'coat' => 'Wire, Dense',
                     'description' => 'Popular breed with a distinctive white coat and lively personality. West Highland White Terriers are known for their self-assured nature.'
-                ],
-                [
-                    'breed_group' => 'Terrier',
-                    'breed_name' => 'Tibetan Mastiff',
-                    'size' => 'Large',
-                    'coat' => 'Long, Thick',
-                    'description' => 'Ancient breed known for its protective instincts and regal appearance, traditionally used to guard livestock in the Himalayas.'
-                ],    [
+                ],  
+                 [
                     'breed_group' => 'Gundog',
                     'breed_name' => 'Bracco Italiano',
                     'size' => 'Large',
                     'coat' => 'Short, Dense',
                     'description' => 'An Italian breed known for its excellent scenting abilities and versatility in various hunting activities, often used for pointing and retrieving game.'
-                ],
-                [
-                    'breed_group' => 'Gundog',
-                    'breed_name' => 'Brittany',
-                    'size' => 'Medium',
-                    'coat' => 'Medium, Dense',
-                    'description' => 'A French breed prized for its agility and enthusiasm in the field, popular as both a hunting dog and a family companion.'
                 ],
                 [
                     'breed_group' => 'Gundog',
@@ -624,24 +612,10 @@ class BreedsTableSeeder extends Seeder
                 ],
                 [
                     'breed_group' => 'Gundog',
-                    'breed_name' => 'Bracco Italiano',
-                    'size' => 'Large',
-                    'coat' => 'Short, Dense',
-                    'description' => 'An Italian breed known for its excellent scenting abilities and versatility in various hunting activities, often used for pointing and retrieving game.'
-                ],
-                [
-                    'breed_group' => 'Gundog',
                     'breed_name' => 'Brittany',
                     'size' => 'Medium',
                     'coat' => 'Medium, Dense',
                     'description' => 'A French breed prized for its agility and enthusiasm in the field, popular as both a hunting dog and a family companion.'
-                ],
-                [
-                    'breed_group' => 'Gundog',
-                    'breed_name' => 'English Setter',
-                    'size' => 'Large',
-                    'coat' => 'Long, Silky',
-                    'description' => 'Renowned for its elegant appearance and exceptional scent detection skills, the English Setter is a friendly and gentle breed.'
                 ],
                 [
                     'breed_group' => 'Gundog',
@@ -1176,13 +1150,6 @@ class BreedsTableSeeder extends Seeder
                 ],
                 [
                     'breed_group' => 'Utility Group',
-                    'breed_name' => 'Kooikerhondje',
-                    'size' => 'Medium',
-                    'coat' => 'Long, Silky',
-                    'description' => 'The Kooikerhondje is a medium-sized breed with a striking orange-red coat and an intelligent, alert nature.'
-                ],
-                [
-                    'breed_group' => 'Utility Group',
                     'breed_name' => 'Korean Jindo',
                     'size' => 'Medium to Large',
                     'coat' => 'Double-Coat, Dense',
@@ -1305,12 +1272,6 @@ class BreedsTableSeeder extends Seeder
                     'size' => 'Small',
                     'coat' => 'Short, Smooth',
                     'description' => 'The smooth-coated Chihuahua is a diminutive breed with a big personality and a sleek appearance.'
-                ],    [
-                    'breed_group' => 'Toy Group',
-                    'breed_name' => 'Chihuahua (Smooth Coat)',
-                    'size' => 'Small',
-                    'coat' => 'Short, Smooth',
-                    'description' => 'The smooth-coated Chihuahua is a diminutive breed with a big personality and a sleek appearance.'
                 ],
                 [
                     'breed_group' => 'Toy Group',
@@ -1426,6 +1387,6 @@ class BreedsTableSeeder extends Seeder
         
         ];
         
-            DB::table('breeds')->insert($subscriptions);
+            DB::table('breeds')->insert($breeds);
     }
 }

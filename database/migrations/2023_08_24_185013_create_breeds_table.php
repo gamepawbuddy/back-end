@@ -15,7 +15,7 @@ class CreateBreedsTable extends Migration
     {
         Schema::create('breeds', function (Blueprint $table) {
             $table->id(); 
-            $table->string('breed_group')->unique(); 
+            $table->string('breed_group');
             $table->string('breed_name')->unique();
             $table->string('size')->nullable(); 
             $table->string('coat')->nullable(); 

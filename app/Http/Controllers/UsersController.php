@@ -78,7 +78,7 @@ class UsersController extends Controller
                 return $this->respondCreated('User created successfully');
             }
     
-            return $this->respondServerError('User creation failed');
+            return $this->respondServerError('User or aninal creation failed.');
     
         } catch (ValidationException $e) {
             return $this->respondWithValidationErrors($e->errors());

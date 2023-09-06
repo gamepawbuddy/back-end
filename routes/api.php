@@ -20,8 +20,8 @@ use App\Http\Controllers\LocationController;
 
 // Grouping routes under the 'v1' version prefix
 Route::prefix('v1')->group(function () {
-    Route::post('/location', 'LocationController@findClosestPark');
-
+  
+    Route::post('location', [LocationController::class, 'findClosestPark']);
     
     // Grouping user-related routes under the 'user' prefix
     Route::prefix('user')->group(function () {

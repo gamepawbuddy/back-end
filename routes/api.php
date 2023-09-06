@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\LocationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,7 +20,9 @@ use App\Http\Controllers\SubscriptionController;
 
 // Grouping routes under the 'v1' version prefix
 Route::prefix('v1')->group(function () {
+    Route::post('/location', 'LocationController@findClosestPark');
 
+    
     // Grouping user-related routes under the 'user' prefix
     Route::prefix('user')->group(function () {
         // Route for creating users

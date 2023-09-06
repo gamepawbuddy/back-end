@@ -96,9 +96,11 @@ class LocationsTableSeeder extends Seeder
 
         foreach ($locations as $cityName => $coordinates) {
             DB::table('locations')->insert([
-                'city_name' => $cityName,
+                'name' => $cityName,
                 'latitude' => $coordinates[0],
                 'longitude' => $coordinates[1],
+                'created_at' => now(), 
+                'updated_at' => now()
             ]);
         }
     }

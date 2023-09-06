@@ -10,9 +10,9 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Name of the location (e.g., "Bath")
-            $table->decimal('latitude', 10, 7); // Latitude value
-            $table->decimal('longitude', 10, 7); // Longitude value
+            $table->string('name'); 
+            $table->decimal('latitude', 10, 7); 
+            $table->decimal('longitude', 10, 7); 
             $table->timestamps();
         });
     }
